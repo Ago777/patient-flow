@@ -44,8 +44,8 @@ export const setContainerClassnames = (clickIndex, strCurrentClasses) => {
     const currentClasses = strCurrentClasses ? strCurrentClasses.split(' ').filter(x => x != '') : '';
     let nextClasses = '';
     if (clickIndex % 4 == 0) {
-        if (currentClasses.includes('menu-default') && currentClasses.includes('menu-sub-hidden')) {
-            nextClasses = 'menu-default menu-sub-hidden';
+        if (currentClasses.includes('menu-default') && currentClasses.includes('sub-hidden')) {
+            nextClasses = 'menu-default sub-hidden';
         } else if (currentClasses.includes('menu-default')) {
             nextClasses = 'menu-default';
         } else if (currentClasses.includes('menu-sub-hidden')) {
@@ -55,8 +55,8 @@ export const setContainerClassnames = (clickIndex, strCurrentClasses) => {
         }
         clickIndex = 0;
     } else if (clickIndex % 4 == 1) {
-        if (currentClasses.includes('menu-default') && currentClasses.includes('menu-sub-hidden')) {
-            nextClasses = 'menu-default menu-sub-hidden main-hidden sub-hidden';
+        if (currentClasses.includes('menu-default') && currentClasses.includes('sub-hidden')) {
+            nextClasses = 'menu-default main-hidden sub-hidden';
         } else if (currentClasses.includes('menu-default')) {
             nextClasses = 'menu-default sub-hidden';
         } else if (currentClasses.includes('menu-sub-hidden')) {
@@ -65,8 +65,8 @@ export const setContainerClassnames = (clickIndex, strCurrentClasses) => {
             nextClasses = 'menu-hidden main-show-temporary';
         }
     } else if (clickIndex % 4 == 2) {
-        if (currentClasses.includes('menu-default') && currentClasses.includes('menu-sub-hidden')) {
-            nextClasses = 'menu-default menu-sub-hidden sub-hidden';
+        if (currentClasses.includes('menu-default') && currentClasses.includes('sub-hidden')) {
+            nextClasses = 'menu-default sub-hidden';
         } else if (currentClasses.includes('menu-default')) {
             nextClasses = 'menu-default main-hidden sub-hidden';
         } else if (currentClasses.includes('menu-sub-hidden')) {
@@ -75,8 +75,8 @@ export const setContainerClassnames = (clickIndex, strCurrentClasses) => {
             nextClasses = 'menu-hidden main-show-temporary sub-show-temporary';
         }
     } else if (clickIndex % 4 == 3) {
-        if (currentClasses.includes('menu-default') && currentClasses.includes('menu-sub-hidden')) {
-            nextClasses = 'menu-default menu-sub-hidden sub-show-temporary';
+        if (currentClasses.includes('menu-default') && currentClasses.includes('sub-hidden')) {
+            nextClasses = 'menu-default main-hidden sub-hidden';
         } else if (currentClasses.includes('menu-default')) {
             nextClasses = 'menu-default sub-hidden';
         } else if (currentClasses.includes('menu-sub-hidden')) {

@@ -1,5 +1,7 @@
-export const defaultMenuType = 'menu-default'; // 'menu-default', 'menu-sub-hidden', 'menu-hidden';
-export const defaultStartPath = '/app/dashboards/default'; 
+// export const defaultStartPath = '/app/dashboards/default';
+// export const defaultMenuType = 'menu-default'; // 'menu-default', 'menu-sub-hidden', 'menu-hidden';
+export const defaultStartPath = '/app/dashboard';
+export const defaultMenuType = 'menu-default sub-hidden';
 export const subHiddenBreakpoint=1440;
 export const menuHiddenBreakpoint = 768;
 export const defaultLocale='en';
@@ -18,4 +20,4 @@ export const firebaseConfig = {
 };
 
 
-export const searchPath = "/app/layouts/search"
+export const searchPath = "/app/search"

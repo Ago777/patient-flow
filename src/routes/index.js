@@ -4,10 +4,18 @@ import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import TopNav from 'Containers/TopNav'
 import Sidebar from 'Containers/Sidebar';
 
-import dashboards from './dashboards';
-import layouts from './layouts';
-import applications from './applications';
-import ui from './ui';
+import dashboard from './dashboard';
+import appointments from './appointments';
+import reminders from './reminders';
+import calendar from './calendar';
+import patients from './patients';
+import phoneLeads from './phones';
+import reviews from './reviews';
+import seo from './seo';
+import listings from './listings';
+import search from './search';
+// import layouts from './layouts';
+// import ui from './ui';
 
 import { connect } from 'react-redux';
 
@@ -21,10 +29,22 @@ class MainApp extends Component {
 				<main>
 					<div className="container-fluid">
 						<Switch>
-							<Route path={`${match.url}/applications`} component={applications} />
-							<Route path={`${match.url}/dashboards`} component={dashboards} />
-							<Route path={`${match.url}/layouts`} component={layouts} />
-							<Route path={`${match.url}/ui`} component={ui} />
+							<Route path={`${match.url}/dashboard`} component={dashboard} />
+							<Route path={`${match.url}/appointments`} component={appointments} />
+							<Route path={`${match.url}/reminders`} component={reminders} />
+							<Route path={`${match.url}/calendar`} component={calendar} />
+							<Route path={`${match.url}/patients`} component={patients} />
+							<Route path={`${match.url}/phones`} component={phoneLeads} />
+							<Route path={`${match.url}/reviews`} component={reviews} />
+							<Route path={`${match.url}/seo`} component={seo} />
+							<Route path={`${match.url}/listings`} component={listings} />
+							<Route path={`${match.url}/search`} component={search} />
+
+
+							{/*<Route path={`${match.url}/applications`} component={applications} />*/}
+							{/*<Route path={`${match.url}/dashboards`} component={dashboards} />*/}
+							{/*<Route path={`${match.url}/layouts`} component={layouts} />*/}
+							{/*<Route path={`${match.url}/ui`} component={ui} />*/}
 							<Redirect to="/error" />
 						</Switch>
 					</div>
