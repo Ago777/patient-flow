@@ -90,7 +90,7 @@ export default class Patients extends Component {
                 <Row>
                     <Colxx xxs="12">
                         <BreadcrumbContainer
-                            heading={<IntlMessages id="menu.content" />}
+                            heading={'Patients Soon'}
                             match={this.props.match}
                         />
                         <Separator className="mb-5" />

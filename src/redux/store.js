@@ -1,21 +1,17 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import createSagaMiddleware from "redux-saga";
+import {createStore, applyMiddleware, compose} from 'redux';
 import reducers from './reducers';
-import sagas from "./sagas";
-
-const sagaMiddleware = createSagaMiddleware();
-
-const middlewares = [sagaMiddleware];
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
 export function configureStore(initialState) {
 
-    const store = createStore(
-        reducers,
-        initialState,
-        compose(applyMiddleware(...middlewares))
-    );
+    const middlewares = [thunk, logger];
+    let composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-    sagaMiddleware.run(sagas);
+    const store = createStore(
+       reducers,
+       composeEnhancers(applyMiddleware(...middlewares))
+    );
 
     if (module.hot) {
         // Enable Webpack hot module replacement for reducers

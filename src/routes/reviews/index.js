@@ -266,7 +266,7 @@ class Reviews extends Component {
                             <Colxx xxs="12">
                                 <div className="mb-2">
                                     <h1>
-                                        <IntlMessages id="menu.thumb-list" />
+                                        Reviews Soon
                                     </h1>
 
                                     <div className="float-sm-right">

@@ -139,7 +139,7 @@ class DefaultDashboard extends Component {
                 <Row>
                     <Colxx xxs="12">
                         <BreadcrumbContainer
-                            heading={<IntlMessages id="menu.default" />}
+                            heading={'Dashboard'}
                             match={this.props.match}
                         />
                         <Separator className="mb-5" />

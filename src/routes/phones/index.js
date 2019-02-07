@@ -49,7 +49,7 @@ export default class PhoneLeads extends Component {
                 <Row>
                     <Colxx xxs="12">
                         <BreadcrumbContainer
-                            heading={<IntlMessages id="menu.analytics" />}
+                            heading={'Phone Leads Soon'}
                             match={this.props.match}
                         />
                         <Separator className="mb-5" />

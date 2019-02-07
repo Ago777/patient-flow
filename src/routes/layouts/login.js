@@ -1,105 +1,128 @@
-import React, { Component, Fragment } from "react";
+import React, {Component, Fragment} from "react";
 import IntlMessages from "Util/IntlMessages";
-import { Row, Card, CardTitle, Form, Label, Input, Button } from "reactstrap";
-import { NavLink } from "react-router-dom";
+import {Row, Card, CardTitle, Form, Label, Input, Button} from "reactstrap";
+import {bindActionCreators} from 'redux';
+import {NavLink} from "react-router-dom";
+import {Colxx} from "Components/CustomBootstrap";
+import {connect} from "react-redux";
+import {loginUser} from "Redux/actions";
 
-import { Colxx } from "Components/CustomBootstrap";
-
-import { connect } from "react-redux";
-import { loginUser } from "Redux/actions";
-
-class LoginLayout extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "demo@gogo.com",
-      password: "gogo123"
+      email: "",
+      password: ""
     };
-  }
+  };
+
   onUserLogin() {
-    if (this.state.email !== "" && this.state.password !== "") {
+    if (this.state.email.trim() !== "" && this.state.password.trim() !== "") {
       this.props.loginUser(this.state, this.props.history);
     }
-  }
+  };
+
+  handleChangeInput = (e, type) => {
+    const value = e.target.value;
+    const state = this.state;
+    state[type] = value;
+    this.setState(state)
+  };
 
   componentDidMount() {
     document.body.classList.add("background");
-  }
+  };
+
   componentWillUnmount() {
     document.body.classList.remove("background");
-  }
+  };
+
   render() {
+    console.log(this.state)
     return (
-      <Fragment>
-        <div className="fixed-background" />
-        <main>
-          <div className="container">
-            <Row className="h-100">
-              <Colxx xxs="12" md="10" className="mx-auto my-auto">
-                <Card className="auth-card">
-                  <div className="position-relative image-side ">
-                    <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
-                    <p className="white mb-0">
-                      Please use your credentials to login.
-                      <br />
-                      If you are not a member, please{" "}
-                      <NavLink to={`/register`} className="white">
-                        register
-                      </NavLink>
-                      .
-                    </p>
-                  </div>
-                  <div className="form-side">
-                    <NavLink to={`/`} className="white">
-                      <span className="logo-single" />
-                    </NavLink>
-                    <CardTitle className="mb-4">
-                      <IntlMessages id="user.login-title" />
-                    </CardTitle>
-                    <Form>
-                      <Label className="form-group has-float-label mb-4">
-                        <Input type="email" defaultValue={this.state.email} />
-                        <IntlMessages id="user.email" />
-                      </Label>
-                      <Label className="form-group has-float-label mb-4">
-                        <Input type="password" />
-                        <IntlMessages
-                          id="user.password"
-                          defaultValue={this.state.password}
-                        />
-                      </Label>
-                      <div className="d-flex justify-content-between align-items-center">
-                        <NavLink to={`/forgot-password`}>
-                          <IntlMessages id="user.forgot-password-question" />
-                        </NavLink>
-                        <Button
-                          color="primary"
-                          className="btn-shadow"
-                          size="lg"
-                          onClick={() => this.onUserLogin()}
-                        >
-                          <IntlMessages id="user.login-button" />
-                        </Button>
-                      </div>
-                    </Form>
-                  </div>
-                </Card>
-              </Colxx>
-            </Row>
-          </div>
-        </main>
-      </Fragment>
+       <Fragment>
+         <div className="fixed-background"/>
+         <main>
+           <div className="container">
+             <Row className="h-100">
+               <Colxx xxs="12" md="10" className="mx-auto my-auto">
+                 <Card className="auth-card">
+                   <div className="position-relative image-side ">
+                     <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
+                     <p className="white mb-0">
+                       Please use your credentials to login.
+                       <br/>
+                       If you are not a member, please{" "}
+                       <NavLink to={`/register`} className="white">
+                         register
+                       </NavLink>
+                       .
+                     </p>
+                   </div>
+                   <div className="form-side">
+                     <NavLink to={`/`} className="white navbar-logo">
+                       <span className='logo'/>
+                       <div className='logo-text'>
+                         <span className='logo-txt'>PATIENT</span>
+                         <span className='logo-txt txt'>FLOW</span>
+                       </div>
+                     </NavLink>
+                     <CardTitle className="mb-4">
+                       <IntlMessages id="user.login-title"/>
+                     </CardTitle>
+                     <Form>
+                       <Label className="form-group has-float-label mb-4">
+                         <Input type="email" onChange={(e) => this.handleChangeInput(e, 'email')}/>
+                         <IntlMessages id="user.email"/>
+                       </Label>
+                       <Label className="form-group has-float-label mb-4">
+                         <Input type="password" onChange={(e) => this.handleChangeInput(e, 'password')}/>
+                         <IntlMessages
+                            id="user.password"
+                            defaultValue={this.state.password}
+                         />
+                       </Label>
+                       <div className="d-flex justify-content-between align-items-center">
+                         <NavLink to={`/forgot-password`}>
+                           <IntlMessages id="user.forgot-password-question"/>
+                         </NavLink>
+                         <Button
+                            color="primary"
+                            className="btn-shadow"
+                            size="lg"
+                            onClick={() => this.onUserLogin()}
+                         >
+                           <IntlMessages id="user.login-button"/>
+                         </Button>
+                       </div>
+                     </Form>
+                   </div>
+                 </Card>
+               </Colxx>
+             </Row>
+           </div>
+         </main>
+       </Fragment>
     );
   }
 }
-const mapStateToProps = ({ authUser }) => {
-  const { user, loading } = authUser;
-  return { user, loading };
+
+const mapStateToProps = ({authUser}) => {
+  const {user, loading} = authUser;
+
+  return {
+    user,
+    loading
+  };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    loginUser
-  }
-)(LoginLayout);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+     {
+       loginUser,
+     },
+     dispatch
+  );
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

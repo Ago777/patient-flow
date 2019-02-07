@@ -1,5 +1,5 @@
 import {
-    LOGIN_USER,
+    LOGIN_PENDING,
     LOGIN_USER_SUCCESS,
     REGISTER_USER,
     REGISTER_USER_SUCCESS,
@@ -7,13 +7,13 @@ import {
 } from 'Constants/actionTypes';
 
 const INIT_STATE = {
-    user: localStorage.getItem('user_id'),
+    user: localStorage.getItem('user'),
     loading: false
 };
 
 export default (state = INIT_STATE, action) => {
     switch (action.type) {
-        case LOGIN_USER:
+        case LOGIN_PENDING:
             return { ...state, loading: true };
         case LOGIN_USER_SUCCESS:
             return { ...state, loading: false, user: action.payload };

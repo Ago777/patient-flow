@@ -4,611 +4,491 @@ import {
     Row,
     Card,
     CardBody,
-    Nav,
-    NavItem,
-    Button,
-    DropdownToggle,
+    CardTitle,
+    UncontrolledDropdown,
     DropdownItem,
+    DropdownToggle,
     DropdownMenu,
-    TabContent,
-    TabPane,
-    Badge,
-    ButtonDropdown,
     FormGroup,
-    CustomInput,
-    Progress,
-    CardTitle
+    Label,
+    Button,
+    Form,
+    Input
 } from "reactstrap";
-import { Colxx } from "Components/CustomBootstrap";
-import { BreadcrumbItems } from "Components/BreadcrumbContainer";
+import BreadcrumbContainer from "Components/BreadcrumbContainer";
+import { Colxx, Separator } from "Components/CustomBootstrap";
 import { NavLink } from "react-router-dom";
-import classnames from "classnames";
-import SurveyQuestionBuilder from "Components/SurveyQuestionBuilder";
-import Sortable from "react-sortablejs";
-import { mapOrder } from "Util/Utils";
-import ApplicationMenu from "Components/ApplicationMenu";
+import ReactSiemaCarousel from "Components/ReactSiema/ReactSiemaCarousel";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import ReactTable from "react-table";
+import DataTablePagination from "Components/DataTables/pagination";
+import CircularProgressbar from "react-circular-progressbar";
+import Select from "react-select";
+import CustomSelectInput from "Components/CustomSelectInput";
 
-import { connect } from "react-redux";
+import { LineShadow } from "Components/Charts";
+import commentsData from "Data/comments.json";
+import productsData from "Data/products.json";
+import cakeData from "Data/dashboard.cakes.json";
+
+
 import {
-    getSurveyDetail,
-    deleteSurveyQuestion,
-    saveSurvey
-
-} from "Redux/actions";
-
-
-import {
-    DoughnutShadow
-} from "Components/Charts";
-import {
-    doughnutChartConfig
+    visitChartConfig,
+    conversionChartConfig,
 } from "Constants/chartConfig";
 
-import { ThemeColors } from "Util/ThemeColors";
+const comments = commentsData.data;
+const dataTableData = productsData.data;
+const cakes = cakeData.data;
+
+const dataTableColumns = [
+    {
+        Header: "Name",
+        accessor: "name",
+        Cell: props => <p className="list-item-heading">{props.value}</p>
+    },
+    {
+        Header: "Sales",
+        accessor: "sales",
+        Cell: props => <p className="text-muted">{props.value}</p>
+    },
+    {
+        Header: "Stock",
+        accessor: "stock",
+        Cell: props => <p className="text-muted">{props.value}</p>
+    },
+    {
+        Header: "Category",
+        accessor: "category",
+        Cell: props => <p className="text-muted">{props.value}</p>
+    }
+];
+
+const selectData = [
+    { label: "Cake", value: "cake", key: 0 },
+    { label: "Cupcake", value: "cupcake", key: 1 },
+    { label: "Dessert", value: "dessert", key: 2 }
+];
 
 
-const colors = ThemeColors();
-
-const surveyData=[];
-const ageChartData = {
-    ...doughnutChartConfig,
-    data: {
-        labels: ["12-24", "24-30", "30-40", "40-50", "50-60"],
-        datasets: [
-            {
-                label: "",
-                borderColor: [
-                    colors.themeColor1,
-                    colors.themeColor2,
-                    colors.themeColor3,
-                    colors.themeColor4,
-                    colors.themeColor5
-                ],
-                backgroundColor: [
-                    colors.themeColor1_10,
-                    colors.themeColor2_10,
-                    colors.themeColor3_10,
-                    colors.themeColor4_10,
-                    colors.themeColor5_10
-                ],
-                borderWidth: 2,
-                data: [15, 25, 20, 30, 14]
-            }
-        ]
-    }
-};
-const genderChartData = {
-    ...doughnutChartConfig,
-    data: {
-        labels: ["Male", "Female", "Other"],
-        datasets: [
-            {
-                label: "",
-                borderColor: [
-                    colors.themeColor1,
-                    colors.themeColor2,
-                    colors.themeColor3
-                ],
-                backgroundColor: [
-                    colors.themeColor1_10,
-                    colors.themeColor2_10,
-                    colors.themeColor3_10
-                ],
-                borderWidth: 2,
-                data: [85, 45, 20]
-            }
-        ]
-    }
-};
-const workChartData = {
-    ...doughnutChartConfig,
-    data: {
-        labels: [
-            "Employed for wages",
-            "Self-employed",
-            "Looking for work",
-            "Retired"
-        ],
-        datasets: [
-            {
-                label: "",
-                borderColor: [
-                    colors.themeColor1,
-                    colors.themeColor2,
-                    colors.themeColor3,
-                    colors.themeColor4
-                ],
-                backgroundColor: [
-                    colors.themeColor1_10,
-                    colors.themeColor2_10,
-                    colors.themeColor3_10,
-                    colors.themeColor4_10
-                ],
-                borderWidth: 2,
-                data: [15, 25, 20, 8]
-            }
-        ]
-    }
-};
-const codingChartData = {
-    ...doughnutChartConfig,
-    data: {
-        labels: ["Python", "JavaScript", "PHP", "Java", "C#"],
-        datasets: [
-            {
-                label: "",
-                borderColor: [
-                    colors.themeColor1,
-                    colors.themeColor2,
-                    colors.themeColor3,
-                    colors.themeColor4,
-                    colors.themeColor5
-                ],
-                backgroundColor: [
-                    colors.themeColor1_10,
-                    colors.themeColor2_10,
-                    colors.themeColor3_10,
-                    colors.themeColor4_10,
-                    colors.themeColor4_10
-                ],
-                borderWidth: 2,
-                data: [15, 25, 20, 8, 25]
-            }
-        ]
-    }
-};
-
-class Calendar extends Component {
+export default class Patients extends Component {
     constructor(props) {
         super(props);
-        this.toggleTab = this.toggleTab.bind(this);
-        this.toggleSplit = this.toggleSplit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+
         this.state = {
-            activeFirstTab: "1",
-            dropdownSplitOpen: false,
-            surveyData: surveyData
+            selectedOptions: []
         };
     }
-    componentDidMount() {
-        this.props.getSurveyDetail();
-    }
 
-    toggleTab(tab) {
-        if (this.state.activeTab !== tab) {
-            this.setState({
-                activeFirstTab: tab
-            });
-        }
-    }
-
-    toggleSplit() {
-        this.setState(prevState => ({
-            dropdownSplitOpen: !prevState.dropdownSplitOpen
-        }));
-    }
-
-    addQuestion() {
-        const { survey} = this.props.surveyDetailApp;
-
-        var nextId = 0;
-        if (survey.questions.length > 0) {
-            var ordered =survey.questions.slice().sort((a, b) => {
-                return a.id < b.id;
-            });
-            nextId = ordered[0].id + 1;
-        }
-        const newSurvey = Object.assign({},survey);
-        newSurvey.questions.push( { id: nextId })
-        this.props.saveSurvey(newSurvey)
-    }
-
-    handleSortChange(order,sortable,evt){
-        const {survey} = this.props.surveyDetailApp;
-        var ordered_array = mapOrder(
-            survey.questions,
-            order,
-            "id"
-        );
-        this.props.saveSurvey(ordered_array)
-    }
-
-    deleteQuestion(id) {
-        this.props.deleteSurveyQuestion(id,this.props.surveyDetailApp.survey)
-    }
-
+    handleChange = selectedOption => {
+        this.setState({ selectedOption });
+    };
     render() {
-        const {
-            survey,
-            loading
-
-        } = this.props.surveyDetailApp;
-
         return (
-            <Fragment>
-                <Row className="app-row survey-app">
-                    <Colxx xxs="12">
-                        <h1>
-                            <i className="simple-icon-refresh heading-icon" /> <span className="align-middle d-inline-block pt-1">Developer Survey</span>
-                        </h1>
-                        <div className="float-sm-right mb-2">
-                            <ButtonDropdown
-                                className="top-right-button top-right-button-single"
-                                isOpen={this.state.dropdownSplitOpen}
-                                toggle={this.toggleSplit}
-                            >
-                                <Button
-                                    outline
-                                    className="flex-grow-1"
-                                    size="lg"
-                                    color="primary"
-                                >
-                                    SAVE
-                                </Button>
-                                <DropdownToggle
-                                    size="lg"
-                                    className="pr-4 pl-4"
-                                    caret
-                                    outline
-                                    color="primary"
-                                />
-                                <DropdownMenu right>
-                                    <DropdownItem header>
-                                        <IntlMessages id="survey.delete" />
-                                    </DropdownItem>
-                                    <DropdownItem disabled>
-                                        <IntlMessages id="survey.edit" />
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </ButtonDropdown>
-                        </div>
+           <Fragment>
+               <Row>
+                   <Colxx xxs="12">
+                       <BreadcrumbContainer
+                          heading={'Calendar Soon'}
+                          match={this.props.match}
+                       />
+                       <Separator className="mb-5" />
+                   </Colxx>
+               </Row>
 
-                        <BreadcrumbItems match={this.props.match} />
-                        {loading ?
-                            <Fragment>
-                                <Nav tabs className="separator-tabs ml-0 mb-5">
-                                    <NavItem>
-                                        <NavLink
-                                            className={classnames({
-                                                active: this.state.activeFirstTab === "1",
-                                                "nav-link": true
-                                            })}
-                                            onClick={() => {
-                                                this.toggleTab("1");
-                                            }}
-                                            to="#"
-                                        >
-                                            DETAILS
-                                        </NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink
-                                            className={classnames({
-                                                active: this.state.activeFirstTab === "2",
-                                                "nav-link": true
-                                            })}
-                                            onClick={() => {
-                                                this.toggleTab("2");
-                                            }}
-                                            to="#"
-                                        >
-                                            RESULTS
-                                        </NavLink>
-                                    </NavItem>
-                                </Nav>
+               <Row>
+                   <Colxx lg="12" xl="6">
+                       <div className="icon-cards-row">
+                           <ReactSiemaCarousel
+                              perPage={{
+                                  0: 1,
+                                  320: 2,
+                                  576: 3,
+                                  1800: 4
+                              }}
+                              controls={false}
+                              loop={false}
+                           >
+                               <div className="icon-row-item">
+                                   <Card className="mb-4">
+                                       <CardBody className="text-center">
+                                           <i className="iconsmind-Alarm" />
+                                           <p className="card-text font-weight-semibold mb-0">
+                                               <IntlMessages id="dashboards.pending-orders" />
+                                           </p>
+                                           <p className="lead text-center">14</p>
+                                       </CardBody>
+                                   </Card>
+                               </div>
+                               <div className="icon-row-item">
+                                   <Card className="mb-4">
+                                       <CardBody className="text-center">
+                                           <i className="iconsmind-Basket-Coins" />
+                                           <p className="card-text font-weight-semibold mb-0">
+                                               <IntlMessages id="dashboards.completed-orders" />
+                                           </p>
+                                           <p className="lead text-center">32</p>
+                                       </CardBody>
+                                   </Card>
+                               </div>
+                               <div className="icon-row-item">
+                                   <Card className="mb-4">
+                                       <CardBody className="text-center">
+                                           <i className="iconsmind-Arrow-Refresh" />
+                                           <p className="card-text font-weight-semibold mb-0">
+                                               <IntlMessages id="dashboards.refund-requests" />
+                                           </p>
+                                           <p className="lead text-center">74</p>
+                                       </CardBody>
+                                   </Card>
+                               </div>
+                               <div className="icon-row-item">
+                                   <Card className="mb-4">
+                                       <CardBody className="text-center">
+                                           <i className="iconsmind-Mail-Read" />
+                                           <p className="card-text font-weight-semibold mb-0">
+                                               <IntlMessages id="dashboards.new-comments" />
+                                           </p>
+                                           <p className="lead text-center">25</p>
+                                       </CardBody>
+                                   </Card>
+                               </div>
+                           </ReactSiemaCarousel>
+                       </div>
 
-                                <TabContent activeTab={this.state.activeFirstTab}>
-                                    <TabPane tabId="1">
+                       <Row>
+                           <Colxx md="12" className="mb-4">
+                               <Card>
+                                   <div className="position-absolute card-top-buttons">
+                                       <UncontrolledDropdown>
+                                           <DropdownToggle
+                                              color=""
+                                              className="btn btn-header-light icon-button"
+                                           >
+                                               <i className="simple-icon-refresh" />
+                                           </DropdownToggle>
+                                           <DropdownMenu right>
+                                               <DropdownItem>
+                                                   <IntlMessages id="dashboards.sales" />
+                                               </DropdownItem>
+                                               <DropdownItem>
+                                                   <IntlMessages id="dashboards.orders" />
+                                               </DropdownItem>
+                                               <DropdownItem>
+                                                   <IntlMessages id="dashboards.refunds" />
+                                               </DropdownItem>
+                                           </DropdownMenu>
+                                       </UncontrolledDropdown>
+                                   </div>
+                                   <CardBody>
+                                       <CardTitle>
+                                           <IntlMessages id="dashboards.quick-post" />
+                                       </CardTitle>
+                                       <Form className="dashboard-quick-post">
+                                           <FormGroup row>
+                                               <Label sm={3}>
+                                                   <IntlMessages id="dashboards.title" />
+                                               </Label>
+                                               <Colxx sm={9}>
+                                                   <Input type="text" name="text" />
+                                               </Colxx>
+                                           </FormGroup>
 
-                                        <Row>
-                                            <Colxx xxs="12" lg="4" className="mb-4">
-                                                <Card className="mb-4">
-                                                    <CardBody>
-                                                        <p className="list-item-heading mb-4">Summary</p>
-                                                        <p className="text-muted text-small mb-2">Name</p>
-                                                        <p className="mb-3">{survey.title}</p>
+                                           <FormGroup row>
+                                               <Label sm={3}>
+                                                   <IntlMessages id="dashboards.content" />
+                                               </Label>
+                                               <Colxx sm={9}>
+                                                   <Input type="textarea" rows="3" />
+                                               </Colxx>
+                                           </FormGroup>
 
-                                                        <p className="text-muted text-small mb-2">Details</p>
-                                                        <p className="mb-3" dangerouslySetInnerHTML={{ __html: survey.detail }}/>
+                                           <FormGroup row>
+                                               <Label sm={3}>
+                                                   <IntlMessages id="dashboards.category" />
+                                               </Label>
+                                               <Colxx sm={9}>
+                                                   <Select
+                                                      components={{ Input:  CustomSelectInput}}
+                                                      className="react-select"
+                                                      classNamePrefix="react-select"
+                                                      name="form-field-name"
+                                                      value={this.state.selectedOption}
+                                                      onChange={this.handleChange}
+                                                      options={selectData}
+                                                   />
+                                               </Colxx>
+                                           </FormGroup>
+                                           <Button className="float-right" color="primary">
+                                               <IntlMessages id="dashboards.save-and-publish" />
+                                           </Button>
+                                       </Form>
+                                   </CardBody>
+                               </Card>
+                           </Colxx>
+                       </Row>
+                   </Colxx>
 
-                                                        <p className="text-muted text-small mb-2">Category</p>
-                                                        <p className="mb-3">{survey.category}</p>
+                   <Colxx lg="12" xl="6" className="mb-4">
+                       <Card>
+                           <div className="position-absolute card-top-buttons">
+                               <button className="btn btn-header-light icon-button">
+                                   <i className="simple-icon-refresh" />
+                               </button>
+                           </div>
+                           <CardBody>
+                               <CardTitle>
+                                   <IntlMessages id="dashboards.top-viewed-posts" />
+                               </CardTitle>
+                               <ReactTable
+                                  defaultPageSize={6}
+                                  data={dataTableData}
+                                  columns={dataTableColumns}
+                                  minRows={0}
+                                  PaginationComponent={DataTablePagination}
+                               />
+                           </CardBody>
+                       </Card>
+                   </Colxx>
+               </Row>
 
-                                                        <p className="text-muted text-small mb-2">Label</p>
-                                                        <div>
-                                                            <p className="d-sm-inline-block mb-1">
-                                                                <Badge color={survey.labelColor} pill>{survey.label}</Badge>
-                                                            </p>
-                                                            <p className="d-sm-inline-block  mb-1" />
-                                                        </div>
-                                                    </CardBody>
-                                                </Card>
-                                            </Colxx>
+               <Row>
+                   <Colxx md="6" lg="4" className="mb-4">
+                       <Card className="dashboard-link-list">
+                           <CardBody>
+                               <CardTitle>
+                                   <IntlMessages id="dashboards.cakes" />
+                               </CardTitle>
+                               <div className="d-flex flex-row">
+                                   <div className="w-50">
+                                       <ul className="list-unstyled mb-0">
+                                           {
+                                               cakes.slice(0, 12).map((c, index) => {
+                                                   return (
+                                                      <li key={index} className="mb-1">
+                                                          <NavLink to={c.link}>{c.title}</NavLink>
+                                                      </li>
+                                                   )
+                                               })
+                                           }
+                                       </ul>
+                                   </div>
+                                   <div className="w-50">
+                                       <ul className="list-unstyled mb-0">
+                                           {
+                                               cakes.slice(12, 24).map((c, index) => {
+                                                   return (
+                                                      <li key={index} className="mb-1">
+                                                          <NavLink to={c.link}>{c.title}</NavLink>
+                                                      </li>
+                                                   )
+                                               })
+                                           }
+                                       </ul>
+                                   </div>
+                               </div>
+                           </CardBody>
+                       </Card>
+                   </Colxx>
 
-                                            <Colxx xxs="12" lg="8">
-                                                <ul className="list-unstyled mb-4">
-                                                    {survey.questions.map((item, index) => {
-                                                        return (
-                                                            <li data-id={item.id} key={item.id}>
-                                                                <SurveyQuestionBuilder
-                                                                    order={index}
-                                                                    {...item}
-                                                                    expanded={!item.title && true}
-                                                                    deleteClick={id => {
-                                                                        this.deleteQuestion(id);
-                                                                    }}
-                                                                />
-                                                            </li>
-                                                        );
-                                                    })}
-                                                </ul>
+                   <Colxx lg="8" md="12" className="mb-4">
+                       <Card>
+                           <CardBody>
+                               <CardTitle>
+                                   <IntlMessages id="dashboards.new-comments" />
+                               </CardTitle>
+                               <div className="dashboard-list-with-user">
+                                   <PerfectScrollbar
+                                      option={{ suppressScrollX: true, wheelPropagation: false }}
+                                   >
+                                       {comments.map((ticket, index) => {
+                                           return (
+                                              <div
+                                                 key={index}
+                                                 className="d-flex flex-row mb-3 pb-3 border-bottom"
+                                              >
+                                                  <NavLink to="/app/layouts/details">
+                                                      <img
+                                                         src={ticket.thumb}
+                                                         alt={ticket.label}
+                                                         className="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall"
+                                                      />
+                                                  </NavLink>
 
-                                                <div className="text-center">
-                                                    <Button
-                                                        outline
-                                                        color="primary"
-                                                        className="mt-3"
-                                                        onClick={() => this.addQuestion()}
-                                                    >
-                                                        <i className="simple-icon-plus btn-group-icon" /> Add
-                                                        Question
-                                                    </Button>
-                                                </div>
-                                            </Colxx>
-                                        </Row>
-                                    </TabPane>
-                                    <TabPane tabId="2">
-                                        <Row>
-                                            <Colxx xxs="12" lg="4">
-                                                <Card className="mb-4">
-                                                    <CardBody>
-                                                        <p className="list-item-heading mb-4">Quota</p>
+                                                  <div className="pl-3 pr-2">
+                                                      <NavLink to="/app/layouts/details">
+                                                          <p className="font-weight-medium mb-0 ">
+                                                              {ticket.label}
+                                                          </p>
+                                                          <p className="text-muted mb-0 text-small">
+                                                              {ticket.detail}
+                                                          </p>
+                                                      </NavLink>
+                                                  </div>
+                                              </div>
+                                           );
+                                       })}
+                                   </PerfectScrollbar>
+                               </div>
+                           </CardBody>
+                       </Card>
+                   </Colxx>
+               </Row>
 
-                                                        <div className="mb-4">
-                                                            <p className="mb-2">Gender</p>
+               <Row>
+                   <Colxx sm="12" md="6" className="mb-4">
+                       <Card className="dashboard-filled-line-chart">
+                           <CardBody>
+                               <div className="float-left float-none-xs">
+                                   <div className="d-inline-block">
+                                       <h5 className="d-inline">
+                                           <IntlMessages id="dashboards.website-visits" />
+                                       </h5>
+                                       <span className="text-muted text-small d-block">
+                      <IntlMessages id="dashboards.unique-visitors" />
+                    </span>
+                                   </div>
+                               </div>
 
-                                                            <Progress multi className="mb-3">
-                                                                <Progress bar value="60" />
-                                                                <Progress bar color="theme-2" value="40" />
-                                                            </Progress>
+                               <div className="btn-group float-right float-none-xs mt-2">
+                                   <UncontrolledDropdown>
+                                       <DropdownToggle
+                                          caret
+                                          color="primary"
+                                          className="btn-xs"
+                                          outline
+                                       >
+                                           <IntlMessages id="dashboards.this-week" />
+                                       </DropdownToggle>
+                                       <DropdownMenu right>
+                                           <DropdownItem>
+                                               <IntlMessages id="dashboards.last-week" />
+                                           </DropdownItem>
+                                           <DropdownItem>
+                                               <IntlMessages id="dashboards.this-month" />
+                                           </DropdownItem>
+                                       </DropdownMenu>
+                                   </UncontrolledDropdown>
+                               </div>
+                           </CardBody>
 
-                                                            <table className="table table-sm table-borderless">
-                                                                <tbody>
-                                                                <tr>
-                                                                    <td className="p-0 pb-1 w-10">
-                                                                        <span className="log-indicator border-theme-1 align-middle" />
-                                                                    </td>
-                                                                    <td className="p-0 pb-1">
-                                  <span className="font-weight-medium text-muted text-small">
-                                    105/125 Male
-                                  </span>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td className="p-0 pb-1 w-10">
-                                                                        <span className="log-indicator border-theme-2 align-middle" />
-                                                                    </td>
-                                                                    <td className="p-0 pb-1">
-                                  <span className="font-weight-medium text-muted text-small">
-                                    90/125 Female
-                                  </span>
-                                                                    </td>
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
 
-                                                        <div className="mb-4">
-                                                            <p className="mb-2">Education</p>
-                                                            <Progress multi className="mb-3">
-                                                                <Progress bar value="80" />
-                                                                <Progress bar color="theme-2" value="20" />
-                                                            </Progress>
+                           <div className="chart card-body pt-0">
+                               <LineShadow {...visitChartConfig} />
+                           </div>
+                       </Card>
+                   </Colxx>
+                   <Colxx sm="12" md="6" className="mb-4">
+                       <Card className="dashboard-filled-line-chart">
+                           <CardBody>
+                               <div className="float-left float-none-xs">
+                                   <div className="d-inline-block">
+                                       <h5 className="d-inline">
+                                           <IntlMessages id="dashboards.conversion-rates" />
+                                       </h5>
+                                       <span className="text-muted text-small d-block">
+                    <IntlMessages id="dashboards.per-session" />
+                    </span>
+                                   </div>
+                               </div>
+                               <div className="btn-group float-right float-none-xs mt-2">
+                                   <UncontrolledDropdown>
+                                       <DropdownToggle
+                                          caret
+                                          color="secondary"
+                                          className="btn-xs"
+                                          outline
+                                       >
+                                           <IntlMessages id="dashboards.this-week" />
+                                       </DropdownToggle>
+                                       <DropdownMenu right>
+                                           <DropdownItem>
+                                               <IntlMessages id="dashboards.last-week" />
+                                           </DropdownItem>
+                                           <DropdownItem>
+                                               <IntlMessages id="dashboards.this-month" />
+                                           </DropdownItem>
+                                       </DropdownMenu>
+                                   </UncontrolledDropdown>
+                               </div>
+                           </CardBody>
+                           <div className="chart card-body pt-0">
+                               <LineShadow {...conversionChartConfig} />
+                           </div>
+                       </Card>
+                   </Colxx>
+               </Row>
 
-                                                            <table className="table table-sm table-borderless">
-                                                                <tbody>
-                                                                <tr>
-                                                                    <td className="p-0 pb-1 w-10">
-                                                                        <span className="log-indicator border-theme-1 align-middle" />
-                                                                    </td>
-                                                                    <td className="p-0 pb-1">
-                                  <span className="font-weight-medium text-muted text-small">
-                                    139/125 College
-                                  </span>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td className="p-0 pb-1 w-10">
-                                                                        <span className="log-indicator border-theme-2 align-middle" />
-                                                                    </td>
-                                                                    <td className="p-0 pb-1">
-                                  <span className="font-weight-medium text-muted text-small">
-                                    95/125 High School
-                                  </span>
-                                                                    </td>
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-
-                                                        <div className="mb-4">
-                                                            <p className="mb-2">Age</p>
-                                                            <Progress multi className="mb-3">
-                                                                <Progress bar value="35" />
-                                                                <Progress bar color="theme-2" value="25" />
-                                                                <Progress bar color="theme-3" value="40" />
-                                                            </Progress>
-
-                                                            <table className="table table-sm table-borderless">
-                                                                <tbody>
-                                                                <tr>
-                                                                    <td className="p-0 pb-1 w-10">
-                                                                        <span className="log-indicator border-theme-1 align-middle" />
-                                                                    </td>
-                                                                    <td className="p-0 pb-1">
-                                  <span className="font-weight-medium text-muted text-small">
-                                    50/75 18-24
-                                  </span>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td className="p-0 pb-1 w-10">
-                                                                        <span className="log-indicator border-theme-2 align-middle" />
-                                                                    </td>
-                                                                    <td className="p-0 pb-1">
-                                  <span className="font-weight-medium text-muted text-small">
-                                    40/75 24-30
-                                  </span>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td className="p-0 pb-1 w-10">
-                                                                        <span className="log-indicator border-theme-3 align-middle" />
-                                                                    </td>
-                                                                    <td className="p-0 pb-1">
-                                  <span className="font-weight-medium text-muted text-small">
-                                    60/75 30-40
-                                  </span>
-                                                                    </td>
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </CardBody>
-                                                </Card>
-                                            </Colxx>
-
-                                            <Colxx xxs="12" lg="8">
-                                                <Card className="mb-4">
-                                                    <CardBody>
-                                                        <CardTitle>How old are you?</CardTitle>
-                                                        <div className="chart-container">
-                                                            <DoughnutShadow {...ageChartData} />
-                                                        </div>
-                                                    </CardBody>
-                                                </Card>
-
-                                                <Card className="mb-4">
-                                                    <CardBody>
-                                                        <CardTitle>What is your gender?</CardTitle>
-                                                        <div className="chart-container">
-                                                            <DoughnutShadow {...genderChartData} />
-                                                        </div>
-                                                    </CardBody>
-                                                </Card>
-
-                                                <Card className="mb-4">
-                                                    <CardBody>
-                                                        <CardTitle>What is your employment status?</CardTitle>
-                                                        <div className="chart-container">
-                                                            <DoughnutShadow {...workChartData} />
-                                                        </div>
-                                                    </CardBody>
-                                                </Card>
-
-                                                <Card className="mb-4">
-                                                    <CardBody>
-                                                        <CardTitle>
-                                                            What programming languages do you use?
-                                                        </CardTitle>
-                                                        <div className="chart-container">
-                                                            <DoughnutShadow {...codingChartData} />
-                                                        </div>
-                                                    </CardBody>
-                                                </Card>
-                                            </Colxx>
-                                        </Row>
-                                    </TabPane>
-                                </TabContent>
-                            </Fragment>
-                            :<div className="loading"></div>
-                        }
-                    </Colxx>
-                </Row>
-
-                <ApplicationMenu>
-                    <PerfectScrollbar
-                        option={{ suppressScrollX: true, wheelPropagation: false }}
-                    >
-                        <div className="p-4">
-                            <p className="text-muted text-small">Status</p>
-                            <ul className="list-unstyled mb-5">
-                                <li className="active">
-                                    <NavLink to="#">
-                                        <i className="simple-icon-refresh" />
-                                        Active Surveys
-                                        <span className="float-right">12</span>
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink to="#">
-                                        <i className="simple-icon-check" />
-                                        Completed Surveys
-                                        <span className="float-right">24</span>{" "}
-                                    </NavLink>
-                                </li>
-                            </ul>
-
-                            <p className="text-muted text-small">Categories</p>
-                            <FormGroup className="mb-5">
-                                <CustomInput
-                                    type="checkbox"
-                                    id="developmentCheck"
-                                    label="Development"
-                                    className="mb-2"
-                                />
-                                <CustomInput
-                                    type="checkbox"
-                                    id="workplaceCheck"
-                                    className="mb-2"
-                                    label="Workplace"
-                                />
-                                <CustomInput
-                                    type="checkbox"
-                                    id="hardwareCheck"
-                                    className="mb-2"
-                                    label="Hardware"
-                                />
-                            </FormGroup>
-
-                            <p className="text-muted text-small">Labels</p>
-                            <div>
-                                <NavLink to="#">
-                                    <Badge className="mb-1" color="outline-primary" pill>
-                                        NEW FRAMEWORK
-                                    </Badge>{" "}
-                                </NavLink>
-
-                                <NavLink to="#">
-                                    <Badge className="mb-1" color="outline-secondary" pill>
-                                        EDUCATION
-                                    </Badge>{" "}
-                                </NavLink>
-                                <NavLink to="#">
-                                    <Badge className="mb-1" color="outline-dark" pill>
-                                        PERSONAL
-                                    </Badge>{" "}
-                                </NavLink>
-                            </div>
-                        </div>
-                    </PerfectScrollbar>
-                </ApplicationMenu>
-
-            </Fragment>
+               <Row>
+                   <Colxx lg="4" className="mb-4">
+                       <Card className="progress-banner">
+                           <CardBody className="justify-content-between d-flex flex-row align-items-center">
+                               <div>
+                                   <i className="iconsmind-Alarm mr-2 text-white align-text-bottom d-inline-block" />
+                                   <div>
+                                       <p className="lead text-white">5 <IntlMessages id="dashboards.posts" /></p>
+                                       <p className="text-small text-white">
+                                           <IntlMessages id="dashboards.pending-for-publish" />
+                                       </p>
+                                   </div>
+                               </div>
+                               <div className="progress-bar-circle progress-bar-banner position-relative">
+                                   <CircularProgressbar
+                                      strokeWidth={4}
+                                      percentage={40}
+                                      text={"5/12"}
+                                   />
+                               </div>
+                           </CardBody>
+                       </Card>
+                   </Colxx>
+                   <Colxx lg="4" className="mb-4">
+                       <Card className="progress-banner">
+                           <CardBody className="justify-content-between d-flex flex-row align-items-center">
+                               <div>
+                                   <i className="iconsmind-Male mr-2 text-white align-text-bottom d-inline-block" />
+                                   <div>
+                                       <p className="lead text-white">4 <IntlMessages id="dashboards.users" /></p>
+                                       <p className="text-small text-white">
+                                           <IntlMessages id="dashboards.on-approval-process" />
+                                       </p>
+                                   </div>
+                               </div>
+                               <div className="progress-bar-circle progress-bar-banner position-relative">
+                                   <CircularProgressbar
+                                      strokeWidth={4}
+                                      percentage={66}
+                                      text={"4/6"}
+                                   />
+                               </div>
+                           </CardBody>
+                       </Card>
+                   </Colxx>
+                   <Colxx lg="4" className="mb-4">
+                       <Card className="progress-banner">
+                           <CardBody className="justify-content-between d-flex flex-row align-items-center">
+                               <div>
+                                   <i className="iconsmind-Bell-2 mr-2 text-white align-text-bottom d-inline-block" />
+                                   <div>
+                                       <p className="lead text-white">8 <IntlMessages id="dashboards.alerts" /></p>
+                                       <p className="text-small text-white">
+                                           <IntlMessages id="dashboards.waiting-for-notice" />
+                                       </p>
+                                   </div>
+                               </div>
+                               <div className="progress-bar-circle progress-bar-banner position-relative">
+                                   <CircularProgressbar
+                                      strokeWidth={4}
+                                      percentage={80}
+                                      text={"8/10"}
+                                   />
+                               </div>
+                           </CardBody>
+                       </Card>
+                   </Colxx>
+               </Row>
+           </Fragment>
         );
     }
 }
-
-const mapStateToProps = ({  surveyDetailApp }) => {
-    return {
-        surveyDetailApp
-    };
-};
-export default connect(
-    mapStateToProps,
-    {
-        getSurveyDetail,
-        deleteSurveyQuestion,
-        saveSurvey
-    }
-)(Calendar);
