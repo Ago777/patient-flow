@@ -38,7 +38,6 @@ class Login extends Component {
   };
 
   render() {
-    console.log(this.state)
     return (
        <Fragment>
          <div className="fixed-background"/>
