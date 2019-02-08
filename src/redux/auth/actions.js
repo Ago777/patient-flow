@@ -12,10 +12,10 @@ import {LOGIN_PENDING, LOGIN_USER_SUCCESS, LOGOUT_USER} from "../../constants/ac
 export const loginUser = (user, history) => {
   return dispatch => {
     dispatch({type: LOGIN_PENDING});
-    // Http.post('http://80.87.199.171:3002/auth_login', user)
-    //   .then(response => console.log(response))
-    //   .catch(err => console.log(err))
-    dispatch(loginUserSuccess(user, history));
+    Http.post('http://80.87.199.171:3002/auth_login', user)
+      .then(response => console.log(response))
+      .catch(err => console.log(err))
+    // dispatch(loginUserSuccess(user, history));
   };
 };
 

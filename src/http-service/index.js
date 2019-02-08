@@ -26,7 +26,7 @@ const Http = {
         url,
         method: 'post',
         data: JSON.stringify(body),
-        headers: { "Content-type": "application/json"},
+        headers,
       }).then(response => resolve(response))
          .catch(err => {
            reject(err);
