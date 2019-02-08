@@ -326,7 +326,7 @@ class Listings extends Component {
                                     className="w-30 w-sm-100"
                                  >
                                    <p className="list-item-heading mb-1 truncate">
-                                     {product.title}
+                                     2findlocal
                                    </p>
                                  </NavLink>
                                  <p className="mb-1 text-muted text-small truncate w-25 w-sm-100 small-txt-xxs">
