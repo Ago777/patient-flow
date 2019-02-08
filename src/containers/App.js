@@ -70,7 +70,10 @@ class App extends Component {
 const mapStateToProps = ({authUser, settings}) => {
     const {user} = authUser;
     const {locale} = settings;
-    return {user, locale};
+    return {
+        user,
+        locale
+    };
 };
 
 export default connect(mapStateToProps, {})(App);
