@@ -16,10 +16,14 @@ class Login extends Component {
         };
     };
 
-    onUserLogin() {
+    onUserLogin = () => {
         if (this.state.email.trim() !== "" && this.state.password.trim() !== "") {
             this.props.loginUser(this.state, this.props.history);
         }
+    };
+
+    handleKeyPress = (e) => {
+        if (e.key === "Enter") this.onUserLogin()
     };
 
     handleChangeInput = (e, type) => {
@@ -44,7 +48,7 @@ class Login extends Component {
           <Fragment>
               <div className="fixed-background"/>
               <main>
-                  <div className="container">
+                  <div className="container" onKeyPress={this.handleKeyPress}>
                       <Row className="h-100">
                           <Colxx xxs="12" md="10" className="mx-auto my-auto">
                               <Card className="auth-card">

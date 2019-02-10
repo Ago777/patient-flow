@@ -10,7 +10,7 @@ import {connect} from "react-redux";
 
 import AppLocale from '../lang';
 import MainRoute from 'Routes';
-import login from 'Routes/layouts/login'
+import login from './Login';
 import register from 'Routes/layouts/register'
 import error from 'Routes/layouts/error'
 import forgotPassword from 'Routes/layouts/forgot-password'

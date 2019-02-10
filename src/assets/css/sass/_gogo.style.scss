@@ -40,6 +40,7 @@ Table of Contents
 35.Loading
 36.Context Menu
 37.Seo
+38.Review
 */
 /* 00.Variables and Imports */
 @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700");
@@ -5526,6 +5527,7 @@ input:-webkit-autofill {
       flex-direction: column;
       margin-top: -3px;
     }
+
     .logo-txt {
       background: linear-gradient(to right, #30CFD0 0%, #3d6578 100%);
       -webkit-background-clip: text;
@@ -7558,7 +7560,7 @@ input:-webkit-autofill {
   }
 }
 
-.seo {
+.seo, .review {
   .items-count {
     margin-right: 30px;
   }
@@ -7580,6 +7582,7 @@ input:-webkit-autofill {
   .sort-btn .sort {
     padding: 0 10px 0 5px;
   }
+
   .sort-btn .keyword {
     padding-right: 5px;
   }
@@ -7592,6 +7595,7 @@ input:-webkit-autofill {
   .hidden {
     display: none;
   }
+
 
   @include respond-below(xs) {
     .response {
@@ -7606,4 +7610,115 @@ input:-webkit-autofill {
     }
 
   }
+}
+
+.review {
+  .card .card-body {
+    padding: 30px 25px 30px 25px;
+  }
+
+  .rating-txt {
+    font-size: 19px;
+    color: black;
+    font-weight: 600;
+  }
+
+  .rating-num {
+    font-family: sans-serif;
+    font-size: 40px;
+    color: black
+  }
+
+  .rating-num-small {
+    font-family: sans-serif;
+    font-size: 20px;
+    color: black;
+  }
+
+  .stars {
+    margin-left: 10px;
+
+    & > i.material-icons {
+      color: grey;
+    }
+
+    & > i.material-icons.fill {
+      color: #f2b01e;
+    }
+  }
+
+  .stars.small {
+    margin-left: 0;
+
+    & > i.material-icons {
+      font-size: 18px;
+    }
+  }
+
+  .rev-count {
+    width: 50px;
+    font-size: 14px;
+    color: black;
+    padding-left: 13px;
+  }
+
+  .line {
+    height: 9px;
+    background-color: #f2b01e; /* For browsers that do not support gradients */
+    background-image: linear-gradient(to right, red -70%, yellow);
+    box-shadow: 3px 6px 14px 2px rgba(68, 68, 68, 0.2);
+  }
+
+  .line-wrapper {
+    width: 70%;
+  }
+
+  .img {
+    width: 45px;
+    border-radius: 30px;
+    height: 45px;
+  }
+
+  .name {
+    font-size: 16px;
+    color: black;
+  }
+
+  .comment .txt {
+    word-break: break-word;
+  }
+
+  .reply-btn {
+    border: 1.5px solid #13134a;
+    cursor: pointer;
+    border-radius: 20px;
+    width: 35px;
+    height: 35px;
+    align-items: center;
+    text-align: center;
+
+    &:hover {
+      background: #13134a;
+
+      i.material-icons {
+        color: white
+      }
+    }
+  }
+}
+
+.reply-tooltip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 110px;
+  height: 20px;
+  border-radius: 30px;
+  font-size: 9px;
+  background: #13134a;
+  color: white;
+}
+
+.tooltip .arrow {
+  display: none;
 }

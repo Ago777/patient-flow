@@ -27,7 +27,6 @@ import {
     smallChartData3,
     smallChartData4
 } from "Constants/chartConfig";
-
 import {LineShadow} from "Components/Charts";
 import {areaChartConfig} from "Constants/chartConfig";
 import {NavLink} from "react-router-dom";
@@ -47,7 +46,7 @@ export default class DetailsLayout extends Component {
         selectedOrderOption: {column: "all", label: "All"},
     };
 
-    changeOrderBy(column) {
+    changeOrderBy = (column) => {
         this.setState(
           {
               selectedOrderOption: this.state.orderOptions.find(

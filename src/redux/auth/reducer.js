@@ -1,28 +1,30 @@
 import {
     LOGIN_PENDING,
     LOGIN_USER_SUCCESS,
-    REGISTER_USER,
-    REGISTER_USER_SUCCESS,
-    LOGOUT_USER
+    LOGIN_USER_FAILED,
+    LOGOUT_USER,
+    RESET_ERROR
 } from 'Constants/actionTypes';
 
 const INIT_STATE = {
-    user: localStorage.getItem('user'),
-    loading: false
+    user: JSON.parse(localStorage.getItem('user')),
+    loading: false,
+    loginError: null
 };
 
 export default (state = INIT_STATE, action) => {
     switch (action.type) {
         case LOGIN_PENDING:
-            return { ...state, loading: true };
+            return {...state, loading: true};
         case LOGIN_USER_SUCCESS:
-            return { ...state, loading: false, user: action.payload };
-        case REGISTER_USER:
-            return { ...state, loading: true };
-        case REGISTER_USER_SUCCESS:
-            return { ...state, loading: false, user: action.payload.uid };
+            return {...state, loading: false, user: action.payload};
+        case LOGIN_USER_FAILED:
+            return {...state, loading: false, loginError: action.payload};
+        case RESET_ERROR:
+            return {...state, loginError: action.payload};
         case LOGOUT_USER:
-            return { ...state ,user:null};
-        default: return { ...state };
+            return {...state, user: null};
+        default:
+            return {...state};
     }
 }

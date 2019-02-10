@@ -1,47 +1,47 @@
 import Http from "../../http-service";
 
-// import {
-//   LOGIN_USER,
-//   LOGIN_USER_SUCCESS,
-//   LOGOUT_USER,
-//   REGISTER_USER,
-//   REGISTER_USER_SUCCESS
-// } from 'Constants/actionTypes';
-import {LOGIN_PENDING, LOGIN_USER_SUCCESS, LOGOUT_USER} from "../../constants/actionTypes";
+import {
+    LOGIN_PENDING,
+    LOGIN_USER_SUCCESS,
+    LOGOUT_USER,
+    LOGIN_USER_FAILED,
+    RESET_ERROR
+} from "../../constants/actionTypes";
 
 export const loginUser = (user, history) => {
     return dispatch => {
         dispatch({type: LOGIN_PENDING});
         Http.auth('http://80.87.199.171:3002/auth_login', user)
             .then(response => dispatch(loginUserSuccess(response, history)))
-            .catch(err => console.log(err))
+            .catch(res => dispatch({type: LOGIN_USER_FAILED, payload: 'Wrong Email or Password'}))
     };
 };
 
 export const loginUserSuccess = (response, history) => {
-    const userToken = response['data']['token'];
-    localStorage.setItem('user', userToken);
+    const user = response['data']
+    const userToken = user['jwt']['token'];
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('userToken', userToken);
     return dispatch => {
         dispatch({
             type: LOGIN_USER_SUCCESS,
-            payload: userToken
+            payload: user
         });
         history.push('/app/dashboard');
     }
 };
 
+export const resetError = () => {
+    return {
+        type: RESET_ERROR,
+        payload: null
+    }
+}
+
 export const logoutUser = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('userToken');
     return {
         type: LOGOUT_USER,
     }
 };
-
-// export const registerUser = (user, history) => ({
-//   type: REGISTER_USER,
-//   payload: {user, history}
-// })
-// export const registerUserSuccess = (user) => ({
-//   type: REGISTER_USER_SUCCESS,
-//   payload: user
-// })

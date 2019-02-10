@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 const Http = {
-    getToken: () => localStorage.getItem('token'),
+    getToken: () => localStorage.getItem('userToken'),
 
     get: (url) => {
         return new Promise((resolve, reject) => {
             const headers = {
                 'Content-Type': 'application/json',
-                'Authorization': Http.getToken() || ''
+                'token': Http.getToken() || ''
             };
             axios.get(url, {headers})
                 .then(response => resolve(response))
@@ -20,6 +20,7 @@ const Http = {
         return new Promise((resolve, reject) => {
             let headers = {
                 'Content-Type': 'application/json',
+                'token': Http.getToken() || ''
             };
             axios({
                 url,
