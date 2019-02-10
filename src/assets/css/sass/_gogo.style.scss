@@ -41,6 +41,7 @@ Table of Contents
 36.Context Menu
 37.Seo
 38.Review
+38.Listings
 */
 /* 00.Variables and Imports */
 @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700");
@@ -7781,8 +7782,9 @@ input:-webkit-autofill {
     .reply-btn {
       width: 25px;
       height: 25px;
+
       i.material-icons {
-          font-size: 20px;
+        font-size: 20px;
       }
     }
     .under-txt {
@@ -7808,4 +7810,18 @@ input:-webkit-autofill {
 
 .tooltip .arrow {
   display: none;
+}
+
+.listings {
+  .LIVE {
+    background: #0c8e0cad !important;
+  }
+
+  .UNAVAILABLE {
+    background: #862727bd !important;
+  }
+
+  .WAITING_ON_CUSTOMER {
+    background: #e39011d6 !important;
+  }
 }
