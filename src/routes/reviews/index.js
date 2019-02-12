@@ -30,10 +30,11 @@ class Reviews extends Component {
 
         this.state = {
             reviewComments: {},
-            selectedOrderOption: {column: "title", label: "Rating"},
+            selectedOrderOption: {column: "title", label: "All"},
             orderOptions: [
                 {column: "rating", label: "Rating"},
                 {column: "date", label: "Date"},
+                {column: "all", label: "All"},
             ],
         };
     }
@@ -116,7 +117,7 @@ class Reviews extends Component {
                       <div className="mb-5">
                           <span className='page-header'>Reviews</span>
                           <div className="float-sm-right d-flex align-items-center response">
-                              <span className='items-count' onClick={this.x}>{reviewsCount} reviews</span>
+                              <span className='items-count'>{reviewsCount} reviews</span>
                               <UncontrolledDropdown className="mr-1 float-md-left mb-1">
                                   <DropdownToggle caret className='sort-btn' size="xs">
                                       <span className='sort'>Sort By: </span>

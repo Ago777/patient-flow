@@ -1,12 +1,8 @@
 import React, {Component, Fragment} from "react";
-import {injectIntl} from 'react-intl';
 import {Row, Card, Badge} from "reactstrap";
 import {NavLink} from "react-router-dom";
-import classnames from "classnames";
 import {Colxx, Separator} from "Components/CustomBootstrap";
 import {BreadcrumbItems} from "Components/BreadcrumbContainer";
-import Pagination from "Components/List/Pagination";
-import mouseTrap from "react-mousetrap";
 import {ContextMenuTrigger} from "react-contextmenu";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
@@ -28,7 +24,7 @@ class Listings extends Component {
                 first_name
             },
         } = this;
-        if (isLoading) return <div className="loading"></div>;
+        if (isLoading) return <div className="loading"/>;
         if (error) return <h1>{error}</h1>;
 
         return (
@@ -52,7 +48,7 @@ class Listings extends Component {
                           {/*</div>*/}
                       {/*</Colxx>*/}
                       {
-                          listings.slice(0, 20).map((listing, i) => {
+                          listings.map((listing, i) => {
                               return (
                                 <Colxx xxs="12" key={`${listing['id']} ${i}` } className="mb-3 listings">
                                     <ContextMenuTrigger id="menu_id">
@@ -69,20 +65,24 @@ class Listings extends Component {
                                             <div className="pl-2 d-flex flex-grow-1 min-width-zero">
                                                 <div
                                                   className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                                                    <div className="w-30 w-sm-100">
+                                                    <div className="w-25 w-sm-100">
                                                         <p className="list-item-heading mb-1 truncate">
                                                             {listing['publisherId']}
                                                         </p>
                                                     </div>
                                                     <p
-                                                      className="mb-1 text-muted text-small truncate w-25 w-sm-100 small-txt-xxs">
+                                                      className="mb-1 text-muted text-small truncate w-20 w-sm-100 small-txt-xxs">
                                                         {first_name}
                                                     </p>
                                                     <p
-                                                      className="mb-1 text-muted text-small truncate w-25 w-sm-100 small-txt-xxs">
+                                                      className="mb-1 text-muted text-small truncate w-20 w-sm-100 small-txt-xxs">
                                                         Medical
                                                     </p>
-                                                    <div className="w-15 w-sm-100">
+                                                    <p
+                                                      className="mb-1 text-muted text-small truncate w-25 w-sm-100 small-txt-xxs">
+                                                        {listing['locationId']}
+                                                    </p>
+                                                    <div className="w-15 w-sm-100 text-center">
                                                         <Badge className={listing['status']}  pill>
                                                             {listing['status']}
                                                         </Badge>

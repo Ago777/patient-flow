@@ -5,14 +5,15 @@ import {
 } from 'Constants/actionTypes';
 
 const INIT_STATE = {
-    isLoading: true
+    isLoading: true,
+    error: null
 };
 
 export default (state = INIT_STATE, action) => {
     switch (action.type) {
 
         case GET_LISTINGS_PENDING:
-            return {...state, isLoading: true};
+            return {...state, isLoading: true, error: null};
 
         case GET_LISTINGS_SUCCESS:
             return {...state, isLoading: false, ...action.payload};

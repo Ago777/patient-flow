@@ -1,494 +1,229 @@
-import React, { Component, Fragment } from "react";
-import IntlMessages from "Util/IntlMessages";
+import React, {Component, Fragment} from "react";
 import {
-    Row,
-    Card,
-    CardBody,
-    CardTitle,
-    UncontrolledDropdown,
-    DropdownItem,
-    DropdownToggle,
-    DropdownMenu,
-    FormGroup,
-    Label,
-    Button,
-    Form,
-    Input
+    Row, Card, UncontrolledDropdown, DropdownToggle,
+    DropdownMenu, DropdownItem, Button, Modal, ModalHeader,
+    ModalBody, Label, Input, CustomInput, ModalFooter
 } from "reactstrap";
-import BreadcrumbContainer from "Components/BreadcrumbContainer";
-import { Colxx, Separator } from "Components/CustomBootstrap";
-import { NavLink } from "react-router-dom";
-import ReactSiemaCarousel from "Components/ReactSiema/ReactSiemaCarousel";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import ReactTable from "react-table";
-import DataTablePagination from "Components/DataTables/pagination";
-import CircularProgressbar from "react-circular-progressbar";
-import Select from "react-select";
-import CustomSelectInput from "Components/CustomSelectInput";
-
-import { LineShadow } from "Components/Charts";
-import commentsData from "Data/comments.json";
-import productsData from "Data/products.json";
-import cakeData from "Data/dashboard.cakes.json";
+import {NavLink} from "react-router-dom";
+import {Colxx} from "Components/CustomBootstrap";
+import {ContextMenuTrigger} from "react-contextmenu";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+import {getListings, sortBy} from "Redux/actions";
 
 
-import {
-    visitChartConfig,
-    conversionChartConfig,
-} from "Constants/chartConfig";
-
-const comments = commentsData.data;
-const dataTableData = productsData.data;
-const cakes = cakeData.data;
-
-const dataTableColumns = [
-    {
-        Header: "Name",
-        accessor: "name",
-        Cell: props => <p className="list-item-heading">{props.value}</p>
-    },
-    {
-        Header: "Sales",
-        accessor: "sales",
-        Cell: props => <p className="text-muted">{props.value}</p>
-    },
-    {
-        Header: "Stock",
-        accessor: "stock",
-        Cell: props => <p className="text-muted">{props.value}</p>
-    },
-    {
-        Header: "Category",
-        accessor: "category",
-        Cell: props => <p className="text-muted">{props.value}</p>
-    }
-];
-
-const selectData = [
-    { label: "Cake", value: "cake", key: 0 },
-    { label: "Cupcake", value: "cupcake", key: 1 },
-    { label: "Dessert", value: "dessert", key: 2 }
-];
-
-
-export default class Patients extends Component {
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-
-        this.state = {
-            selectedOptions: []
-        };
-    }
-
-    handleChange = selectedOption => {
-        this.setState({ selectedOption });
+class Patients extends Component {
+    state = {
+        selectedOrderOption: {column: "title", label: "All"},
+        orderOptions: [
+            {column: "name", label: "Name"},
+            {column: "email", label: "Email"},
+            {column: "all", label: "All"},
+        ],
+        modalOpen: false,
     };
+
+    componentWillMount() {
+        this.props.getListings()
+    };
+
+    // changeSortBy = (column) => {
+    //     this.setState(
+    //       {
+    //           selectedOrderOption: this.state.orderOptions.find(
+    //             x => x.column === column
+    //           )
+    //       },
+    //     );
+    //     this.props.sortBy(column);
+    //
+    // };
+
     render() {
+        const {
+            props: {
+                error,
+                isLoading,
+                listings,
+                first_name
+            },
+        } = this;
+        if (isLoading) return <div className="loading"/>;
+        if (error) return <h1>{error}</h1>;
+
         return (
-            <Fragment>
-                <Row>
-                    <Colxx xxs="12">
-                        <BreadcrumbContainer
-                            heading={'Patients Soon'}
-                            match={this.props.match}
-                        />
-                        <Separator className="mb-5" />
-                    </Colxx>
-                </Row>
-
-                <Row>
-                    <Colxx lg="12" xl="6">
-                        <div className="icon-cards-row">
-                            <ReactSiemaCarousel
-                                perPage={{
-                                    0: 1,
-                                    320: 2,
-                                    576: 3,
-                                    1800: 4
-                                }}
-                                controls={false}
-                                loop={false}
-                            >
-                                <div className="icon-row-item">
-                                    <Card className="mb-4">
-                                        <CardBody className="text-center">
-                                            <i className="iconsmind-Alarm" />
-                                            <p className="card-text font-weight-semibold mb-0">
-                                                <IntlMessages id="dashboards.pending-orders" />
-                                            </p>
-                                            <p className="lead text-center">14</p>
-                                        </CardBody>
-                                    </Card>
-                                </div>
-                                <div className="icon-row-item">
-                                    <Card className="mb-4">
-                                        <CardBody className="text-center">
-                                            <i className="iconsmind-Basket-Coins" />
-                                            <p className="card-text font-weight-semibold mb-0">
-                                                <IntlMessages id="dashboards.completed-orders" />
-                                            </p>
-                                            <p className="lead text-center">32</p>
-                                        </CardBody>
-                                    </Card>
-                                </div>
-                                <div className="icon-row-item">
-                                    <Card className="mb-4">
-                                        <CardBody className="text-center">
-                                            <i className="iconsmind-Arrow-Refresh" />
-                                            <p className="card-text font-weight-semibold mb-0">
-                                                <IntlMessages id="dashboards.refund-requests" />
-                                            </p>
-                                            <p className="lead text-center">74</p>
-                                        </CardBody>
-                                    </Card>
-                                </div>
-                                <div className="icon-row-item">
-                                    <Card className="mb-4">
-                                        <CardBody className="text-center">
-                                            <i className="iconsmind-Mail-Read" />
-                                            <p className="card-text font-weight-semibold mb-0">
-                                                <IntlMessages id="dashboards.new-comments" />
-                                            </p>
-                                            <p className="lead text-center">25</p>
-                                        </CardBody>
-                                    </Card>
-                                </div>
-                            </ReactSiemaCarousel>
-                        </div>
-
-                        <Row>
-                            <Colxx md="12" className="mb-4">
-                                <Card>
-                                    <div className="position-absolute card-top-buttons">
-                                        <UncontrolledDropdown>
-                                            <DropdownToggle
-                                                color=""
-                                                className="btn btn-header-light icon-button"
-                                            >
-                                                <i className="simple-icon-refresh" />
-                                            </DropdownToggle>
-                                            <DropdownMenu right>
-                                                <DropdownItem>
-                                                    <IntlMessages id="dashboards.sales" />
-                                                </DropdownItem>
-                                                <DropdownItem>
-                                                    <IntlMessages id="dashboards.orders" />
-                                                </DropdownItem>
-                                                <DropdownItem>
-                                                    <IntlMessages id="dashboards.refunds" />
-                                                </DropdownItem>
-                                            </DropdownMenu>
-                                        </UncontrolledDropdown>
-                                    </div>
-                                    <CardBody>
-                                        <CardTitle>
-                                            <IntlMessages id="dashboards.quick-post" />
-                                        </CardTitle>
-                                        <Form className="dashboard-quick-post">
-                                            <FormGroup row>
-                                                <Label sm={3}>
-                                                    <IntlMessages id="dashboards.title" />
-                                                </Label>
-                                                <Colxx sm={9}>
-                                                    <Input type="text" name="text" />
-                                                </Colxx>
-                                            </FormGroup>
-
-                                            <FormGroup row>
-                                                <Label sm={3}>
-                                                    <IntlMessages id="dashboards.content" />
-                                                </Label>
-                                                <Colxx sm={9}>
-                                                    <Input type="textarea" rows="3" />
-                                                </Colxx>
-                                            </FormGroup>
-
-                                            <FormGroup row>
-                                                <Label sm={3}>
-                                                    <IntlMessages id="dashboards.category" />
-                                                </Label>
-                                                <Colxx sm={9}>
-                                                    <Select
-                                                        components={{ Input:  CustomSelectInput}}
-                                                        className="react-select"
-                                                        classNamePrefix="react-select"
-                                                        name="form-field-name"
-                                                        value={this.state.selectedOption}
-                                                        onChange={this.handleChange}
-                                                        options={selectData}
-                                                    />
-                                                </Colxx>
-                                            </FormGroup>
-                                            <Button className="float-right" color="primary">
-                                                <IntlMessages id="dashboards.save-and-publish" />
-                                            </Button>
-                                        </Form>
-                                    </CardBody>
-                                </Card>
-                            </Colxx>
-                        </Row>
-                    </Colxx>
-
-                    <Colxx lg="12" xl="6" className="mb-4">
-                        <Card>
-                            <div className="position-absolute card-top-buttons">
-                                <button className="btn btn-header-light icon-button">
-                                    <i className="simple-icon-refresh" />
-                                </button>
-                            </div>
-                            <CardBody>
-                                <CardTitle>
-                                    <IntlMessages id="dashboards.top-viewed-posts" />
-                                </CardTitle>
-                                <ReactTable
-                                    defaultPageSize={6}
-                                    data={dataTableData}
-                                    columns={dataTableColumns}
-                                    minRows={0}
-                                    PaginationComponent={DataTablePagination}
-                                />
-                            </CardBody>
-                        </Card>
-                    </Colxx>
-                </Row>
-
-                <Row>
-                    <Colxx md="6" lg="4" className="mb-4">
-                        <Card className="dashboard-link-list">
-                            <CardBody>
-                                <CardTitle>
-                                    <IntlMessages id="dashboards.cakes" />
-                                </CardTitle>
-                                <div className="d-flex flex-row">
-                                    <div className="w-50">
-                                        <ul className="list-unstyled mb-0">
-                                            {
-                                                cakes.slice(0, 12).map((c, index) => {
-                                                    return (
-                                                        <li key={index} className="mb-1">
-                                                            <NavLink to={c.link}>{c.title}</NavLink>
-                                                        </li>
-                                                    )
-                                                })
-                                            }
-                                        </ul>
-                                    </div>
-                                    <div className="w-50">
-                                        <ul className="list-unstyled mb-0">
-                                            {
-                                                cakes.slice(12, 24).map((c, index) => {
-                                                    return (
-                                                        <li key={index} className="mb-1">
-                                                            <NavLink to={c.link}>{c.title}</NavLink>
-                                                        </li>
-                                                    )
-                                                })
-                                            }
-                                        </ul>
-                                    </div>
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Colxx>
-
-                    <Colxx lg="8" md="12" className="mb-4">
-                        <Card>
-                            <CardBody>
-                                <CardTitle>
-                                    <IntlMessages id="dashboards.new-comments" />
-                                </CardTitle>
-                                <div className="dashboard-list-with-user">
-                                    <PerfectScrollbar
-                                        option={{ suppressScrollX: true, wheelPropagation: false }}
-                                    >
-                                        {comments.map((ticket, index) => {
-                                            return (
-                                                <div
-                                                    key={index}
-                                                    className="d-flex flex-row mb-3 pb-3 border-bottom"
-                                                >
-                                                    <NavLink to="/app/layouts/details">
-                                                        <img
-                                                            src={ticket.thumb}
-                                                            alt={ticket.label}
-                                                            className="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall"
-                                                        />
-                                                    </NavLink>
-
-                                                    <div className="pl-3 pr-2">
-                                                        <NavLink to="/app/layouts/details">
-                                                            <p className="font-weight-medium mb-0 ">
-                                                                {ticket.label}
-                                                            </p>
-                                                            <p className="text-muted mb-0 text-small">
-                                                                {ticket.detail}
-                                                            </p>
-                                                        </NavLink>
-                                                    </div>
-                                                </div>
-                                            );
-                                        })}
-                                    </PerfectScrollbar>
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Colxx>
-                </Row>
-
-                <Row>
-                    <Colxx sm="12" md="6" className="mb-4">
-                        <Card className="dashboard-filled-line-chart">
-                            <CardBody>
-                                <div className="float-left float-none-xs">
-                                    <div className="d-inline-block">
-                                        <h5 className="d-inline">
-                                            <IntlMessages id="dashboards.website-visits" />
-                                        </h5>
-                                        <span className="text-muted text-small d-block">
-                      <IntlMessages id="dashboards.unique-visitors" />
-                    </span>
-                                    </div>
-                                </div>
-
-                                <div className="btn-group float-right float-none-xs mt-2">
-                                    <UncontrolledDropdown>
-                                        <DropdownToggle
-                                            caret
-                                            color="primary"
-                                            className="btn-xs"
-                                            outline
-                                        >
-                                            <IntlMessages id="dashboards.this-week" />
-                                        </DropdownToggle>
-                                        <DropdownMenu right>
-                                            <DropdownItem>
-                                                <IntlMessages id="dashboards.last-week" />
-                                            </DropdownItem>
-                                            <DropdownItem>
-                                                <IntlMessages id="dashboards.this-month" />
-                                            </DropdownItem>
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown>
-                                </div>
-                            </CardBody>
-
-
-                            <div className="chart card-body pt-0">
-                                <LineShadow {...visitChartConfig} />
-                            </div>
-                        </Card>
-                    </Colxx>
-                    <Colxx sm="12" md="6" className="mb-4">
-                        <Card className="dashboard-filled-line-chart">
-                            <CardBody>
-                                <div className="float-left float-none-xs">
-                                    <div className="d-inline-block">
-                                        <h5 className="d-inline">
-                                            <IntlMessages id="dashboards.conversion-rates" />
-                                        </h5>
-                                        <span className="text-muted text-small d-block">
-                    <IntlMessages id="dashboards.per-session" />
-                    </span>
-                                    </div>
-                                </div>
-                                <div className="btn-group float-right float-none-xs mt-2">
-                                    <UncontrolledDropdown>
-                                        <DropdownToggle
-                                            caret
+          <Fragment>
+              <div className="disable-text-selection patients">
+                  <Row>
+                      <Colxx xxs="12">
+                          <div className="mb-5">
+                              <span className='page-header'>Patients</span>
+                              <div className="float-sm-right d-flex align-items-center response">
+                                  <Button
+                                    color="primary"
+                                    size="lg"
+                                    className="top-right-button add-btn"
+                                    onClick={() => this.setState({modalOpen: !this.state.modalOpen})}
+                                  >
+                                      Add New
+                                  </Button>
+                                  <Modal
+                                    isOpen={this.state.modalOpen}
+                                    toggle={() => this.setState({modalOpen: !this.state.modalOpen})}
+                                    wrapClassName="modal-right"
+                                    backdrop="static"
+                                  >
+                                      <ModalHeader toggle={this.toggleModal}>
+                                          Add New Patient
+                                      </ModalHeader>
+                                      <ModalBody>
+                                          <Label>
+                                              Name
+                                          </Label>
+                                          <Input/>
+                                          <Label className="mt-4">
+                                              Email
+                                          </Label>
+                                          <Input/>
+                                          <Label className="mt-4">
+                                              Status
+                                          </Label>
+                                          <CustomInput
+                                            type="radio"
+                                            id="exCustomRadio"
+                                            name="customRadio"
+                                            label="ON HOLD"
+                                          />
+                                          <CustomInput
+                                            type="radio"
+                                            id="exCustomRadio2"
+                                            name="customRadio"
+                                            label="PROCESSED"
+                                          />
+                                      </ModalBody>
+                                      <ModalFooter>
+                                          <Button
+                                            className='btn-cancel'
                                             color="secondary"
-                                            className="btn-xs"
                                             outline
-                                        >
-                                            <IntlMessages id="dashboards.this-week" />
-                                        </DropdownToggle>
-                                        <DropdownMenu right>
-                                            <DropdownItem>
-                                                <IntlMessages id="dashboards.last-week" />
-                                            </DropdownItem>
-                                            <DropdownItem>
-                                                <IntlMessages id="dashboards.this-month" />
-                                            </DropdownItem>
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown>
-                                </div>
-                            </CardBody>
-                            <div className="chart card-body pt-0">
-                                <LineShadow {...conversionChartConfig} />
-                            </div>
-                        </Card>
-                    </Colxx>
-                </Row>
-
-                <Row>
-                    <Colxx lg="4" className="mb-4">
-                        <Card className="progress-banner">
-                            <CardBody className="justify-content-between d-flex flex-row align-items-center">
-                                <div>
-                                    <i className="iconsmind-Alarm mr-2 text-white align-text-bottom d-inline-block" />
-                                    <div>
-                                        <p className="lead text-white">5 <IntlMessages id="dashboards.posts" /></p>
-                                        <p className="text-small text-white">
-                                            <IntlMessages id="dashboards.pending-for-publish" />
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="progress-bar-circle progress-bar-banner position-relative">
-                                    <CircularProgressbar
-                                        strokeWidth={4}
-                                        percentage={40}
-                                        text={"5/12"}
-                                    />
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Colxx>
-                    <Colxx lg="4" className="mb-4">
-                        <Card className="progress-banner">
-                            <CardBody className="justify-content-between d-flex flex-row align-items-center">
-                                <div>
-                                    <i className="iconsmind-Male mr-2 text-white align-text-bottom d-inline-block" />
-                                    <div>
-                                        <p className="lead text-white">4 <IntlMessages id="dashboards.users" /></p>
-                                        <p className="text-small text-white">
-                                            <IntlMessages id="dashboards.on-approval-process" />
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="progress-bar-circle progress-bar-banner position-relative">
-                                    <CircularProgressbar
-                                        strokeWidth={4}
-                                        percentage={66}
-                                        text={"4/6"}
-                                    />
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Colxx>
-                    <Colxx lg="4" className="mb-4">
-                        <Card className="progress-banner">
-                            <CardBody className="justify-content-between d-flex flex-row align-items-center">
-                                <div>
-                                    <i className="iconsmind-Bell-2 mr-2 text-white align-text-bottom d-inline-block" />
-                                    <div>
-                                        <p className="lead text-white">8 <IntlMessages id="dashboards.alerts" /></p>
-                                        <p className="text-small text-white">
-                                            <IntlMessages id="dashboards.waiting-for-notice" />
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="progress-bar-circle progress-bar-banner position-relative">
-                                    <CircularProgressbar
-                                        strokeWidth={4}
-                                        percentage={80}
-                                        text={"8/10"}
-                                    />
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Colxx>
-                </Row>
-            </Fragment>
+                                            onClick={() => this.setState({modalOpen: !this.state.modalOpen})}
+                                          >
+                                              Cancel
+                                          </Button>
+                                          <Button
+                                            color="primary"
+                                            className='btn-submit'
+                                            onClick={() => this.setState({modalOpen: !this.state.modalOpen})}>
+                                              Submit
+                                          </Button>{" "}
+                                      </ModalFooter>
+                                  </Modal>
+                                  <UncontrolledDropdown className="mr-1 float-md-left mb-1">
+                                      <DropdownToggle caret className='sort-btn' size="xs">
+                                          <span className='sort'>Sort By: </span>
+                                          <span className='keyword'>{this.state.selectedOrderOption.label}</span>
+                                      </DropdownToggle>
+                                      <DropdownMenu>
+                                          {this.state.orderOptions.map((order, index) => {
+                                              return (
+                                                <DropdownItem
+                                                  key={index}
+                                                  onClick={() => this.changeSortBy(order.column)}
+                                                >
+                                                    {order.label}
+                                                </DropdownItem>
+                                              );
+                                          })}
+                                      </DropdownMenu>
+                                  </UncontrolledDropdown>
+                              </div>
+                          </div>
+                      </Colxx>
+                  </Row>
+                  <Row>
+                      {
+                          listings.map((listing, i) => {
+                              return (
+                                <Colxx xxs="12" key={`${listing['id']} ${i}`} className="mb-3 listings">
+                                    <ContextMenuTrigger id="menu_id">
+                                        <Card className="d-flex flex-row">
+                                            <div
+                                              className="d-flex"
+                                            >
+                                                <img
+                                                  alt='img'
+                                                  src='/assets/img/profile-pic-l-8.jpg'
+                                                  className="list-thumbnail responsive border-0"
+                                                />
+                                            </div>
+                                            <div className="pl-2 d-flex flex-grow-1 min-width-zero">
+                                                <div
+                                                  className="card-body align-self-center d-flex flex-column flex-lg-row min-width-zero align-items-lg-center">
+                                                    <div className="w-20 w-sm-100">
+                                                        <p className="list-item-heading mb-1 truncate">
+                                                            John Smith
+                                                        </p>
+                                                    </div>
+                                                    <p
+                                                      className="mb-1 text-muted text-small truncate w-30 w-sm-100 small-txt-xxs">
+                                                        John_smith@gmail.com
+                                                    </p>
+                                                    <p
+                                                      className="mb-1 text-muted text-small truncate w-20 w-sm-100 small-txt-xxs">
+                                                        555.555.4568
+                                                    </p>
+                                                </div>
+                                                <div className="pl-1 align-self-center pr-4">
+                                                    <NavLink
+                                                      to='/app/patient/details'
+                                                      className="review"
+                                                    >
+                                                        <p className="review-btn mb-0 text-muted text-small">
+                                                            <span className='hide-view-txt'>Details</span>
+                                                        </p>
+                                                    </NavLink>
+                                                </div>
+                                            </div>
+                                        </Card>
+                                    </ContextMenuTrigger>
+                                </Colxx>
+                              );
+                          })
+                      }
+                  </Row>
+              </div>
+          </Fragment>
         );
     }
 }
+
+const mapStateToProps = ({listingsPage, authUser}) => {
+    const {
+        error,
+        isLoading,
+        count,
+        listings
+    } = listingsPage;
+
+    const {first_name} = authUser['user'];
+
+    return {
+        error,
+        isLoading,
+        count,
+        listings,
+        first_name
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators(
+      {
+          getListings,
+          sortBy
+      },
+      dispatch
+    );
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Patients);

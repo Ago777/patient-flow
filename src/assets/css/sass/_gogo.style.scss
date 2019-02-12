@@ -531,7 +531,7 @@ p {
   border: initial;
   height: auto;
   max-width: unset;
-  height: 85px;
+  height: 80px;
   object-fit: cover;
   width: unset !important;
 
@@ -7561,7 +7561,7 @@ input:-webkit-autofill {
   }
 }
 
-.seo, .review {
+.seo, .review, .patients {
   .items-count {
     margin-right: 30px;
   }
@@ -7577,7 +7577,7 @@ input:-webkit-autofill {
     border-radius: unset;
     border: unset;
     font-size: 14px;
-    padding: 10px 20px 10px 20px;
+    padding: 8px 20px 8px 20px;
   }
 
   .sort-btn .sort {
@@ -7665,6 +7665,12 @@ input:-webkit-autofill {
 
   .line {
     height: 9px;
+    width: 0px;
+    -webkit-transition: width 3s;
+    -moz-transition: width 3s;
+    -ms-transition: width 3s;
+    -o-transition: width 3s;
+    transition: width 3s;
     background-color: #f2b01e; /* For browsers that do not support gradients */
     background-image: linear-gradient(to right, red -70%, yellow);
     box-shadow: 3px 6px 14px 2px rgba(68, 68, 68, 0.2);
@@ -7813,6 +7819,12 @@ input:-webkit-autofill {
 }
 
 .listings {
+  @include respond-below(md) {
+    .text-center {
+      text-align: unset !important;
+    }
+  }
+
   .LIVE {
     background: #0c8e0cad !important;
   }
@@ -7823,5 +7835,91 @@ input:-webkit-autofill {
 
   .WAITING_ON_CUSTOMER {
     background: #e39011d6 !important;
+  }
+}
+
+.patients {
+  .add-btn {
+    margin-right: 25px;
+    padding: 7px 25px 7px 25px;
+    background: none;
+    border: 1.5px solid #13134a;
+    color: #13134a;
+
+    &:hover,
+    &:active {
+      background: #13134a !important;
+      color: white !important;
+    }
+
+    &:active {
+      border-color: #f8f8f8 !important;
+    }
+  }
+
+  .btn-cancel {
+
+  }
+
+  .btn-submit {
+
+  }
+}
+
+.patient-info {
+  .back-arrow {
+    .material-icons {
+      color: unset;
+      cursor: pointer;
+      &:hover {
+        color: #13134a
+      }
+    }
+  }
+
+  .card {
+    min-height: 416px;
+  }
+
+  .head-txt {
+    font-size: 16px;
+  }
+
+  .email {
+    color: $theme-color-1 !important;
+    cursor: pointer;
+  }
+
+  .detail-icon {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    cursor: pointer;
+  }
+
+  .dropdown .dropdown-toggle {
+    all: unset;
+
+    &::after {
+      all: unset
+    }
+
+    &:active {
+      all: unset;
+    }
+
+    .material-icons {
+      color: unset;
+      font-size: 20px;
+
+      &:active {
+        color: $theme-color-1
+      }
+    }
+  }
+
+  .insurance-txt {
+    color: black;
+    font-weight: bold;
   }
 }
