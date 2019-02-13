@@ -1,21 +1,15 @@
 import React, {Component, Fragment} from "react";
-import {injectIntl} from 'react-intl';
 import {
     Row,
     Card,
-    Badge,
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
     UncontrolledTooltip
 } from "reactstrap";
-import {NavLink} from "react-router-dom";
-import classnames from "classnames";
 import {Colxx, Separator} from "Components/CustomBootstrap";
 import {BreadcrumbItems} from "Components/BreadcrumbContainer";
-import Pagination from "Components/List/Pagination";
-import mouseTrap from "react-mousetrap";
 import {ContextMenuTrigger} from "react-contextmenu";
 import moment from "moment";
 import {connect} from "react-redux";
@@ -43,8 +37,8 @@ class Reviews extends Component {
         this.props.getReviews();
     };
 
-    componentDidUpdate(prevprops) {
-        if (prevprops.isLoading !== this.props.isLoading && !this.props.error) {
+    componentDidUpdate(prevProps) {
+        if (prevProps.isLoading !== this.props.isLoading && !this.props.error && this.props.reviews) {
             let {props: {reviews}, state: {reviewComments}} = this;
             reviews.forEach(review => {
                 reviewComments[review['id']] = {
@@ -53,7 +47,7 @@ class Reviews extends Component {
                     comment: review['content'].substring(0, commentLength),
                     fullComment: review['content']
                 }
-            })
+            });
             this.setState({reviewComments});
         }
     }
@@ -89,9 +83,8 @@ class Reviews extends Component {
         for (let i = 0; i < reviewStarsLength; i++) {
             sumOfStars += reviewsStarts[i]['id'] * reviewsStarts[i]['value'];
         }
-        ;
         return parseInt((sumOfStars / reviewsCount).toFixed(1));
-    }
+    };
 
     render() {
         const {
@@ -105,7 +98,7 @@ class Reviews extends Component {
                 reviewComments
             }
         } = this;
-        if (isLoading) return <div className="loading"></div>;
+        if (isLoading) return <div className="loading"/>;
         if (error) return <h1>{error}</h1>;
         const reviewsCount = reviewsStarts.reduce((accumulator, currentValue) => accumulator + currentValue['value'], 0);
         const averageRating = this.getAverageRating(reviewsStarts, reviewsCount);
@@ -178,7 +171,7 @@ class Reviews extends Component {
                                       </div>
                                       <div className='w-40 w-sm-100'>
                                           {
-                                              reviewsStarts.map((stars, i) =>
+                                              reviewsStarts.map((stars) =>
                                                 (
                                                   <div className='d-flex align-items-center mb-2' key={stars['id']}>
                                                       <div className='d-flex'>
@@ -187,7 +180,8 @@ class Reviews extends Component {
                                                                 reviewsStarts.map((currentStars, i) =>
                                                                   (
                                                                     <i
-                                                                      key={stars['id']+i} className={`material-icons ${(i < stars['id']) ? 'fill' : ''}`}>grade</i>
+                                                                      key={stars['id'] + i}
+                                                                      className={`material-icons ${(i < stars['id']) ? 'fill' : ''}`}>grade</i>
                                                                   )
                                                                 )
                                                             }

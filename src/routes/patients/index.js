@@ -45,7 +45,6 @@ class Patients extends Component {
                 error,
                 isLoading,
                 listings,
-                first_name
             },
         } = this;
         if (isLoading) return <div className="loading"/>;
@@ -144,7 +143,7 @@ class Patients extends Component {
                       {
                           listings.map((listing, i) => {
                               return (
-                                <Colxx xxs="12" key={`${listing['id']} ${i}`} className="mb-3 listings">
+                                <Colxx xxs="12" key={`${listing['id']} ${i}`} className="mb-3 patients">
                                     <ContextMenuTrigger id="menu_id">
                                         <Card className="d-flex flex-row">
                                             <div
@@ -165,11 +164,11 @@ class Patients extends Component {
                                                         </p>
                                                     </div>
                                                     <p
-                                                      className="mb-1 text-muted text-small truncate w-30 w-sm-100 small-txt-xxs">
+                                                      className="mb-1 text-muted truncate w-30 w-sm-100 small-txt-xxs">
                                                         John_smith@gmail.com
                                                     </p>
                                                     <p
-                                                      className="mb-1 text-muted text-small truncate w-20 w-sm-100 small-txt-xxs">
+                                                      className="mb-1 text-muted truncate w-20 w-sm-100 small-txt-xxs">
                                                         555.555.4568
                                                     </p>
                                                 </div>
@@ -178,9 +177,10 @@ class Patients extends Component {
                                                       to='/app/patient/details'
                                                       className="review"
                                                     >
-                                                        <p className="review-btn mb-0 text-muted text-small">
-                                                            <span className='hide-view-txt'>Details</span>
+                                                        <p className="review-btn mb-0 text-muted text-small res-hide">
+                                                            <span>Details</span>
                                                         </p>
+                                                        <i className="material-icons details-icon">contacts</i>
                                                     </NavLink>
                                                 </div>
                                             </div>

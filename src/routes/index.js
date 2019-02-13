@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
 import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
-
 import TopNav from 'Containers/TopNav'
 import Sidebar from 'Containers/Sidebar';
-
 import dashboard from './dashboard';
 import appointments from './appointments';
 import reminders from './reminders';
 import calendar from './calendar';
 import patients from './patients';
-import phoneLeads from './phones';
+import phoneLeads from './phone-leads';
 import reviews from './reviews';
 import seo from './seo';
 import listings from './listings';
 import search from './search';
 import patientDetails from './patients/patient-details';
-// import layouts from './layouts';
-// import ui from './ui';
-
 import { connect } from 'react-redux';
 
 class MainApp extends Component {

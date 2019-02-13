@@ -2733,19 +2733,26 @@ main {
 
   @include respond-below(xs) {
     margin-bottom: 0;
-    .hide-view-txt {
+    .review .hide-view-txt,
+    .listings .hide-view-txt {
       display: none;
     }
-    .hide {
+    .review .hide,
+    .listings .hide {
       margin-left: 0;
     }
-    a.review .review-btn {
+    .review a.review .review-btn,
+    .listings a.review .review-btn {
       padding: unset;
       border: unset;
     }
 
-    a.review .material-icons {
+    .review a.review .material-icons,
+    .listings a.review .material-icons {
       font-size: 20px;
+    }
+    .page-header {
+      margin-bottom: 15px;
     }
 
   }
@@ -7561,7 +7568,7 @@ input:-webkit-autofill {
   }
 }
 
-.seo, .review, .patients {
+.seo, .review, .patients, .phone-leads {
   .items-count {
     margin-right: 30px;
   }
@@ -7794,7 +7801,7 @@ input:-webkit-autofill {
       }
     }
     .under-txt {
-      font-size: 14px;
+      font-size: 10px;
     }
 
   }
@@ -7845,6 +7852,7 @@ input:-webkit-autofill {
     background: none;
     border: 1.5px solid #13134a;
     color: #13134a;
+    width: 120px;
 
     &:hover,
     &:active {
@@ -7857,20 +7865,42 @@ input:-webkit-autofill {
     }
   }
 
-  .btn-cancel {
-
+  .details-icon {
+    display: none;
   }
 
-  .btn-submit {
+  .detail-icon.material-icons {
+    font-size: 20px;
+  }
 
+
+  @include respond-below(xs) {
+    .add-btn {
+      margin: 0 0 10px 0;
+      width: 100%;
+    }
+  }
+
+  @include respond-below(xxs) {
+    .review-btn.res-hide {
+      display: none;
+    }
+    .details-icon {
+      display: block;
+    }
   }
 }
 
 .patient-info {
+  .page-header {
+    margin-bottom: unset
+  }
+
   .back-arrow {
     .material-icons {
       color: unset;
       cursor: pointer;
+
       &:hover {
         color: #13134a
       }
@@ -7922,4 +7952,99 @@ input:-webkit-autofill {
     color: black;
     font-weight: bold;
   }
+
+  @include respond-below(xxs) {
+    .page-header {
+      font-size: 30px;
+    }
+  }
+
+}
+
+.phone-leads {
+
+  .card .card-body {
+    padding: 35px 35px 35px 15px
+  }
+
+  .material-icons {
+    color: #20a320;
+    font-size: 8px;
+  }
+
+  .patient-status {
+    color: #20a320;
+    font-size: 15px;
+  }
+
+  .txt-head {
+    font-size: 20px;
+    color: #13134a;
+    font-weight: 600;
+  }
+
+  .txt {
+    font-size: 14px;
+    color: #13134a;
+    font-weight: 600;
+  }
+
+  .txt.under {
+    font-size: 17px;
+
+    .material-icons {
+      font-size: 20px;
+      color: #13134a
+    }
+
+    .material-icons.weight {
+      font-weight: 600;
+    }
+  }
+
+  .phone-btn {
+    cursor: pointer;
+    border: 1.5px solid grey;
+    border-radius: 20px;
+    text-align: center;
+    width: 35px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+    &:hover,
+    &:active {
+      background: #13134a;
+      border-color: #13134a;
+
+      .material-icons {
+        color: white
+      }
+    }
+
+    .material-icons {
+      color: black;
+      font-size: 20px;
+    }
+  }
+
+  @include respond-below(sm) {
+    .resp {
+      margin-bottom: 15px;
+    }
+  }
+
+  @include respond-below(xxs) {
+    .txt {
+      font-size: 11px;
+    }
+    .txt.under {
+      font-size: 14px;
+    }
+    .txt-head {
+      font-size: 17px;
+    }
+  }
+
 }

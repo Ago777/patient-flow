@@ -113,18 +113,18 @@ export default class DetailsLayout extends Component {
                                           <div className="d-flex flex-grow-1 min-width-zero">
                                               <CardBody
                                                 className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-0 text-muted text-small w-30 w-xs-100 truncate">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
                                                       endormologie Los Angeles
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Page:</span>
                                                       <span>1</span>
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Position:</span>
                                                       <span>2</span>
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Search Engine:</span>
                                                       <span>Google</span>
                                                   </p>
@@ -136,18 +136,18 @@ export default class DetailsLayout extends Component {
                                           <div className="d-flex flex-grow-1 min-width-zero">
                                               <CardBody
                                                 className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-0 text-muted text-small w-30 w-xs-100 truncate">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
                                                       endormologie Los Angeles
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Page:</span>
                                                       <span>1</span>
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Position:</span>
                                                       <span>2</span>
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Search Engine:</span>
                                                       <span>Google</span>
                                                   </p>
@@ -159,18 +159,18 @@ export default class DetailsLayout extends Component {
                                           <div className="d-flex flex-grow-1 min-width-zero">
                                               <CardBody
                                                 className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-0 text-muted text-small w-30 w-xs-100 truncate">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
                                                       endormologie Los Angeles
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Page:</span>
                                                       <span>1</span>
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Position:</span>
                                                       <span>2</span>
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Search Engine:</span>
                                                       <span>Google</span>
                                                   </p>
@@ -182,18 +182,18 @@ export default class DetailsLayout extends Component {
                                           <div className="d-flex flex-grow-1 min-width-zero">
                                               <CardBody
                                                 className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-0 text-muted text-small w-30 w-xs-100 truncate">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
                                                       endormologie Los Angeles
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Page:</span>
                                                       <span>1</span>
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Position:</span>
                                                       <span>2</span>
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Search Engine:</span>
                                                       <span>Google</span>
                                                   </p>
@@ -204,18 +204,18 @@ export default class DetailsLayout extends Component {
                                           <div className="d-flex flex-grow-1 min-width-zero">
                                               <CardBody
                                                 className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-0 text-muted text-small w-30 w-xs-100 truncate">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
                                                       endormologie Los Angeles
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Page:</span>
                                                       <span>1</span>
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Position:</span>
                                                       <span>2</span>
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Search Engine:</span>
                                                       <span>Google</span>
                                                   </p>
@@ -226,41 +226,18 @@ export default class DetailsLayout extends Component {
                                           <div className="d-flex flex-grow-1 min-width-zero">
                                               <CardBody
                                                 className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-0 text-muted text-small w-30 w-xs-100 truncate">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
                                                       endormologie Los Angeles
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Page:</span>
                                                       <span>1</span>
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Position:</span>
                                                       <span>2</span>
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Search Engine:</span>
-                                                      <span>Google</span>
-                                                  </p>
-                                              </CardBody>
-                                          </div>
-                                      </Card>
-
-                                      <Card className="d-flex flex-row mb-2">
-                                          <div className="d-flex flex-grow-1 min-width-zero">
-                                              <CardBody
-                                                className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-0 text-muted text-small w-30 w-xs-100 truncate">
-                                                      endormologie Los Angeles
-                                                  </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Page:</span>
-                                                      <span>1</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Position:</span>
-                                                      <span>2</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Search Engine:</span>
                                                       <span>Google</span>
                                                   </p>
@@ -272,18 +249,41 @@ export default class DetailsLayout extends Component {
                                           <div className="d-flex flex-grow-1 min-width-zero">
                                               <CardBody
                                                 className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-0 text-muted text-small w-30 w-xs-100 truncate">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
                                                       endormologie Los Angeles
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Page:</span>
                                                       <span>1</span>
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Position:</span>
                                                       <span>2</span>
                                                   </p>
-                                                  <p className="pb-1 mb-0 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                      <span className='hidden'>Search Engine:</span>
+                                                      <span>Google</span>
+                                                  </p>
+                                              </CardBody>
+                                          </div>
+                                      </Card>
+
+                                      <Card className="d-flex flex-row mb-2">
+                                          <div className="d-flex flex-grow-1 min-width-zero">
+                                              <CardBody
+                                                className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
+                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
+                                                      endormologie Los Angeles
+                                                  </p>
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                      <span className='hidden'>Page:</span>
+                                                      <span>1</span>
+                                                  </p>
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                      <span className='hidden'>Position:</span>
+                                                      <span>2</span>
+                                                  </p>
+                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
                                                       <span className='hidden'>Search Engine:</span>
                                                       <span>Google</span>
                                                   </p>
