@@ -10,7 +10,7 @@ export const getListings = () => {
         dispatch({type: GET_LISTINGS_PENDING});
         Http.get("http://80.87.199.171:3002/listings")
           .then(response => response.data ? dispatch(getListingsSuccess(response.data)) : dispatch(getListingsFailed('No Listings')))
-          .catch(err => dispatch(getListingsFailed('Can\'t find Listings, Please try later')))
+          .catch(err => dispatch(getListingsFailed('Can\'t Find Listings, Please Sign In Again')))
     }
 };
 

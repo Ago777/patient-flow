@@ -12,9 +12,8 @@ import {BreadcrumbItems} from "Components/BreadcrumbContainer";
 import {ContextMenuTrigger} from "react-contextmenu";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {getReviews, sortBy} from "Redux/actions";
-
-const commentLength = 200;
+import {getReviews, sortBy, logoutUser} from "Redux/actions";
+import {NavLink} from "react-router-dom";
 
 class Reviews extends Component {
     constructor(props) {
@@ -43,7 +42,7 @@ class Reviews extends Component {
               )
           },
         );
-        this.props.sortBy(column);
+        // this.props.sortBy(column);
 
     };
 
@@ -57,7 +56,14 @@ class Reviews extends Component {
             state: {}
         } = this;
         if (isLoading) return <div className="loading"/>;
-        if (error) return <h1>{error}</h1>;
+        if (error) return (
+          <div>
+              <h1>Can't Find Phone Leads, Please Sign In Again</h1>
+              <NavLink onClick={() => this.props.logoutUser(this.props.history)} to='/login' className='link-sign-in'>
+                  Sign In
+              </NavLink>
+          </div>
+        );
 
         return (
           <Fragment>
@@ -67,7 +73,7 @@ class Reviews extends Component {
                           <span className='page-header'>Phone Leads</span>
                           <div className="float-sm-right d-flex align-items-center response">
                               <span className='items-count'>1830 phone leads</span>
-                              <UncontrolledDropdown className="mr-1 float-md-left mb-1">
+                              <UncontrolledDropdown className="mr-1 mb-1">
                                   <DropdownToggle caret className='sort-btn' size="xs">
                                       <span className='sort'>Sort By: </span>
                                       <span className='keyword'>{this.state.selectedOrderOption.label}</span>
@@ -179,6 +185,7 @@ const mapDispatchToProps = (dispatch) => {
       {
           getReviews,
           sortBy,
+          logoutUser
       },
       dispatch
     );

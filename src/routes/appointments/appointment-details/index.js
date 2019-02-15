@@ -10,68 +10,132 @@ import {
 import {Colxx, Separator} from "Components/CustomBootstrap";
 import {NavLink} from "react-router-dom";
 
-export default class PatientDetails extends Component {
+export default class AppointmentDetails extends Component {
 
     render() {
         return (
           <Fragment>
-              <Row className='patient-info'>
+              <Row className='appointment-details'>
                   <Colxx xxs="12">
                       <div className="mb-5 d-flex align-items-center back-arrow">
                           <NavLink to='/app/patients'>
                               <span className='d-flex'><i className="material-icons">arrow_back</i></span>
                           </NavLink>
-                          <span className='page-header ml-4'>Patient Details</span>
+                          <span className='page-header ml-4'>Appointment Details</span>
                       </div>
                   </Colxx>
               </Row>
-              <Row className='patient-info'>
+              <Row className='appointment-details'>
                   <Colxx sm="12" md="12" lg="6" className="mb-4">
                       <Card>
                           <div className='d-flex h-100 p-5 flex-column  flex-xs-row'>
-                              <div className="d-flex mr-4">
-                                  <img
-                                    alt='img'
-                                    src='/assets/img/profile-pic-l-8.jpg'
-                                    className="list-thumbnail border-0"
-                                  />
-                              </div>
                               <div
                                 className="d-flex flex-column justify-content-between min-width-zero">
-                                  <div className="w-100 mb-2">
-                                      <p className='truncate  small-txt-xxs mb-0 head-txt'>Patient
-                                          Name</p>
-                                      <p className="list-item-heading truncate  small-txt-xxs">
-                                          John Smith
+                                  <div className="w-100 mb-3 d-flex">
+                                      <div>
+                                          <i className="material-icons details-icons">
+                                              query_builder
+                                          </i>
+                                      </div>
+                                      <div>
+                                          <p className='d-flex small-txt-xxs mb-0 head-txt'>
+                                              Appointment Time
+                                          </p>
+                                          <p className="list-item-heading small-txt-xxs">
+                                              Jul 15, 2018 at 1:00pm
+                                          </p>
+                                      </div>
+                                  </div>
+                                  <div className="w-100 mb-3 d-flex">
+                                      <div>
+                                          <i className="material-icons details-icons">
+                                              calendar_today
+                                          </i>
+                                      </div>
+                                      <div>
+                                          <p className='small-txt-xxs mb-0 head-txt'>
+                                              Calendar Name
+                                          </p>
+                                          <p className="list-item-heading small-txt-xxs">
+                                              Transformologie
+                                          </p>
+                                      </div>
+                                  </div>
+                                  <div className="w-100 mb-3 d-flex">
+                                      <div>
+                                          <i className="material-icons details-icons">
+                                              enhanced_encryption
+                                          </i>
+                                      </div>
+                                      <div>
+                                          <p className='small-txt-xxs mb-0 head-txt'>
+                                            Provider
+                                          </p>
+                                          <p className="list-item-heading small-txt-xxs email">
+                                              Dr.Phelps
+                                          </p>
+                                      </div>
+                                  </div>
+                                  <div className="w-100 mb-3 d-flex">
+                                      <div>
+                                          <i className="material-icons details-icons">
+                                              location_on
+                                          </i>
+                                      </div>
+                                      <div>
+                                          <p className='small-txt-xxs mb-0 head-txt'>
+                                              Location
+                                          </p>
+                                          <p className="list-item-heading small-txt-xxs">
+                                              Transformologie 123 Medical Road Los Angeles, CA 90156
+                                          </p>
+                                      </div>
+                                  </div>
+                                  <div className="w-100 mb-3 d-flex">
+                                      <div>
+                                          <i className="material-icons details-icons">
+                                              query_builder
+                                          </i>
+                                      </div>
+                                      <div>
+                                          <p className='small-txt-xxs mb-0 head-txt'>
+                                              Requested Time
+                                          </p>
+                                          <p className="list-item-heading small-txt-xxs">
+                                              Requested on Jul 15, 2018 at 1:00pm
+                                          </p>
+                                      </div>
+                                  </div>
+                                  <div className="w-100 mb-3 d-flex">
+                                      <div>
+                                          <i className="material-icons details-icons">
+                                              language
+                                          </i>
+                                      </div>
+                                      <div>
+                                          <p className='d-flex small-txt-xxs mb-0 head-txt'>
+                                              Source
+                                          </p>
+                                          <p className="list-item-heading  small-txt-xxs">
+                                              PatientFlow
+                                          </p>
+                                      </div>
+                                  </div><div className="w-100 mb-3 d-flex">
+                                  <div>
+                                      <i className="material-icons details-icons">
+                                          local_hospital
+                                      </i>
+                                  </div>
+                                  <div>
+                                      <p className='d-flex small-txt-xxs mb-0 head-txt'>
+                                          Reason For Visit
+                                      </p>
+                                      <p className="list-item-heading small-txt-xxs">
+                                          Fever
                                       </p>
                                   </div>
-                                  <div className="w-100 mb-2">
-                                      <p className='truncate  small-txt-xxs mb-0 head-txt'>Patient
-                                          Phone Number</p>
-                                      <p className="list-item-heading truncate  small-txt-xxs">
-                                          374.555.5555
-                                      </p>
-                                  </div>
-                                  <div className="w-100 mb-2">
-                                      <p className='truncate  small-txt-xxs mb-0 head-txt'>Patient
-                                          Email Address</p>
-                                      <p className="list-item-heading truncate  small-txt-xxs email">
-                                          JohnSmith@gmail.com
-                                      </p>
-                                  </div>
-                                  <div className="w-100 mb-2">
-                                      <p className='truncate  small-txt-xxs mb-0 head-txt'>Date of
-                                          Birth</p>
-                                      <p className="list-item-heading truncate  small-txt-xxs">
-                                          December 15, 2015 (age 20)
-                                      </p>
-                                  </div>
-                                  <div className="w-100">
-                                      <p className='truncate  small-txt-xxs mb-0' style={{fontSize: '16px'}}>Sex</p>
-                                      <p className="list-item-heading truncate  small-txt-xxs">
-                                          Male
-                                      </p>
-                                  </div>
+                              </div>
+
                               </div>
                               <div className="detail-icon pr-4">
                                   <UncontrolledDropdown>

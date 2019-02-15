@@ -14,7 +14,8 @@ import {ContextMenuTrigger} from "react-contextmenu";
 import moment from "moment";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {getReviews, sortBy} from "Redux/actions";
+import {getReviews, sortBy, logoutUser} from "Redux/actions";
+import {NavLink} from "react-router-dom";
 
 const commentLength = 200;
 
@@ -99,7 +100,14 @@ class Reviews extends Component {
             }
         } = this;
         if (isLoading) return <div className="loading"/>;
-        if (error) return <h1>{error}</h1>;
+        if (error) return (
+          <div>
+              <h1>{error}</h1>
+              <NavLink onClick={() => this.props.logoutUser(this.props.history)} to='/login' className='link-sign-in'>
+                  Sign In
+              </NavLink>
+          </div>
+        );
         const reviewsCount = reviewsStarts.reduce((accumulator, currentValue) => accumulator + currentValue['value'], 0);
         const averageRating = this.getAverageRating(reviewsStarts, reviewsCount);
 
@@ -301,6 +309,7 @@ const mapDispatchToProps = (dispatch) => {
       {
           getReviews,
           sortBy,
+          logoutUser
       },
       dispatch
     );

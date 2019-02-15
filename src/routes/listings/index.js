@@ -6,7 +6,7 @@ import {BreadcrumbItems} from "Components/BreadcrumbContainer";
 import {ContextMenuTrigger} from "react-contextmenu";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {getListings} from "Redux/actions";
+import {getListings, logoutUser} from "Redux/actions";
 
 class Listings extends Component {
 
@@ -25,7 +25,14 @@ class Listings extends Component {
             },
         } = this;
         if (isLoading) return <div className="loading"/>;
-        if (error) return <h1>{error}</h1>;
+        if (error) return (
+          <div>
+              <h1>{error}</h1>
+              <NavLink onClick={() => this.props.logoutUser(this.props.history)} to='/login' className='link-sign-in'>
+                  Sign In
+              </NavLink>
+          </div>
+        );
 
         return (
           <Fragment>
@@ -136,6 +143,7 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(
       {
           getListings,
+          logoutUser
       },
       dispatch
     );

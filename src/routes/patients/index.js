@@ -2,15 +2,14 @@ import React, {Component, Fragment} from "react";
 import {
     Row, Card, UncontrolledDropdown, DropdownToggle,
     DropdownMenu, DropdownItem, Button, Modal, ModalHeader,
-    ModalBody, Label, Input, CustomInput, ModalFooter
+    ModalBody, Label, Input, CustomInput, ModalFooter, Nav
 } from "reactstrap";
 import {NavLink} from "react-router-dom";
 import {Colxx} from "Components/CustomBootstrap";
 import {ContextMenuTrigger} from "react-contextmenu";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {getListings, sortBy} from "Redux/actions";
-
+import {getListings, sortBy, logoutUser} from "Redux/actions";
 
 class Patients extends Component {
     state = {
@@ -27,17 +26,18 @@ class Patients extends Component {
         this.props.getListings()
     };
 
-    // changeSortBy = (column) => {
-    //     this.setState(
-    //       {
-    //           selectedOrderOption: this.state.orderOptions.find(
-    //             x => x.column === column
-    //           )
-    //       },
-    //     );
-    //     this.props.sortBy(column);
-    //
-    // };
+    changeSortBy = (column) => {
+        this.setState(
+          {
+              selectedOrderOption: this.state.orderOptions.find(
+                x => x.column === column
+              )
+          },
+        );
+        // this.props.sortBy(column);
+
+    };
+
 
     render() {
         const {
@@ -48,7 +48,14 @@ class Patients extends Component {
             },
         } = this;
         if (isLoading) return <div className="loading"/>;
-        if (error) return <h1>{error}</h1>;
+        if (error) return (
+          <div>
+              <h1>Can't Find Patients, Please Sign In Again</h1>
+              <NavLink onClick={() => this.props.logoutUser(this.props.history)} to='/login' className='link-sign-in'>
+                  Sign In
+              </NavLink>
+          </div>
+        );
 
         return (
           <Fragment>
@@ -57,7 +64,7 @@ class Patients extends Component {
                       <Colxx xxs="12">
                           <div className="mb-5">
                               <span className='page-header'>Patients</span>
-                              <div className="float-sm-right d-flex align-items-center response">
+                              <div className="float-md-right d-flex align-items-center response">
                                   <Button
                                     color="primary"
                                     size="lg"
@@ -164,7 +171,7 @@ class Patients extends Component {
                                                         </p>
                                                     </div>
                                                     <p
-                                                      className="mb-1 text-muted truncate w-30 w-sm-100 small-txt-xxs">
+                                                      className="mb-1 text-muted truncate w-30 w-sm-100 small-txt-xxs email">
                                                         John_smith@gmail.com
                                                     </p>
                                                     <p
@@ -220,7 +227,8 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(
       {
           getListings,
-          sortBy
+          sortBy,
+          logoutUser
       },
       dispatch
     );

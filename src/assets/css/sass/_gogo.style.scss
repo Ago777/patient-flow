@@ -724,6 +724,8 @@ button {
 }
 
 .dropdown-menu {
+  right: 0 !important;
+  left: unset !important;
   font-size: 0.8rem;
   border-radius: $border-radius;
   background: $input-background;
@@ -2686,6 +2688,7 @@ main {
   a.review .review-btn:hover {
     color: white !important;
     background-color: #13134a;
+    border-color: #13134a;
 
     & i.material-icons {
       color: white
@@ -2697,7 +2700,7 @@ main {
     font-size: 14px !important;
     padding: 8px 15px;
     border-radius: 20px;
-    border: 1.8px solid #94979b6b;
+    border: 1.8px solid grey;
     align-items: center;
     letter-spacing: -0.5px;
   }
@@ -7568,9 +7571,14 @@ input:-webkit-autofill {
   }
 }
 
-.seo, .review, .patients, .phone-leads {
+.seo, .review, .patients, .phone-leads, .appointments {
   .items-count {
     margin-right: 30px;
+  }
+
+  .email {
+    color: $theme-color-1 !important;
+    cursor: pointer;
   }
 
   .btn-secondary:not(:disabled):not(.disabled):active,
@@ -7845,7 +7853,7 @@ input:-webkit-autofill {
   }
 }
 
-.patients {
+.patients, .appointments {
   .add-btn {
     margin-right: 25px;
     padding: 7px 25px 7px 25px;
@@ -7876,7 +7884,7 @@ input:-webkit-autofill {
 
   @include respond-below(xs) {
     .add-btn {
-      margin: 0 0 10px 0;
+      margin: 10px 0 10px 0;
       width: 100%;
     }
   }
@@ -7891,7 +7899,11 @@ input:-webkit-autofill {
   }
 }
 
-.patient-info {
+.patient-info, .appointment-details {
+  .dropdown-menu {
+    transform: translate3d(0px, 26px, 0px) !important;
+  };
+
   .page-header {
     margin-bottom: unset
   }
@@ -7913,11 +7925,6 @@ input:-webkit-autofill {
 
   .head-txt {
     font-size: 16px;
-  }
-
-  .email {
-    color: $theme-color-1 !important;
-    cursor: pointer;
   }
 
   .detail-icon {
@@ -7951,6 +7958,7 @@ input:-webkit-autofill {
   .insurance-txt {
     color: black;
     font-weight: bold;
+    font-size: 16px;
   }
 
   @include respond-below(xxs) {
@@ -7961,7 +7969,7 @@ input:-webkit-autofill {
 
 }
 
-.phone-leads {
+.phone-leads, .appointments {
 
   .card .card-body {
     padding: 35px 35px 35px 15px
@@ -8047,4 +8055,77 @@ input:-webkit-autofill {
     }
   }
 
+}
+
+.appointments {
+  .txt-head {
+    font-size: 15px;
+  }
+
+  .txt.under .material-icons.calendar {
+    font-size: 18px;
+    color: #94979b
+  }
+
+  .reason,
+  .patient-status {
+    font-size: 16px !important;
+  }
+
+  .sort-btn .filter-icon {
+    font-size: 22px;
+    color: #13134a
+  }
+
+  .show .sort-btn,
+  .sort-btn:active {
+    .filter-icon {
+      color: white
+    }
+  }
+
+  .mobile-btns {
+    display: none !important;
+  }
+
+  @include respond-below(lg) {
+    .txt.under {
+      font-size: 15px;
+    }
+  }
+
+  @include respond-below(md) {
+    .resp {
+      margin-bottom: 15px;
+    }
+  }
+  @include respond-below(xs) {
+    .res-hide {
+      display: none !important;
+    }
+    .mobile-btns {
+      display: flex !important;
+    }
+  }
+}
+.appointment-details {
+  .details-icons {
+    font-size: 20px;
+    color: #13134a;
+    margin-right: 10px;
+    font-weight: 600;
+  }
+
+  @include respond-below(xs) {
+    .page-header {
+      font-size: 23px;
+    }
+  }
+}
+
+.link-sign-in {
+  color: #13134a;
+  font-size: 20px;
+  margin-left: 15px;
+  text-decoration: underline;
 }

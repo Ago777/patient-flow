@@ -280,7 +280,7 @@ class Sidebar extends Component {
                                 <NavItem
                                     className={classnames({
                                         // active: ((this.state.selectedParentMenu == "appointments" && this.state.viewingParentMenu == "") || this.state.viewingParentMenu == "appointments")
-                                        active: (this.state.activeRoute === 'appointments')
+                                        active: (this.state.activeRoute === 'appointments' || this.state.activeRoute === 'appointment')
                                     })}
                                 >
                                     <NavLink
@@ -323,7 +323,7 @@ class Sidebar extends Component {
                                 </NavItem>
                                 <NavItem
                                     className={classnames({
-                                        active: (this.state.activeRoute === 'patients')
+                                        active: (this.state.activeRoute === 'patients' || this.state.activeRoute === 'patient')
                                     })}
                                 >
                                     <NavLink

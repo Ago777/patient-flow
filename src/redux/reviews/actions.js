@@ -12,7 +12,7 @@ export const getReviews = () => {
         dispatch({type: GET_REVIEWS_PENDING});
         Http.get("http://80.87.199.171:3002/reviews")
           .then(response => response.data ? dispatch(getReviewsSuccess(response.data)) : dispatch(getReviewsFailed('No Reviews')))
-          .catch(err => dispatch(getReviewsFailed('Can\'t find Reviews, Please try later')))
+          .catch(err => dispatch(getReviewsFailed('Can\'t Find Reviews, Please Sign In Again')))
     }
 };
 

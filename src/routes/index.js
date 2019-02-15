@@ -13,6 +13,7 @@ import seo from './seo';
 import listings from './listings';
 import search from './search';
 import patientDetails from './patients/patient-details';
+import appointmentDetails from './appointments/appointment-details';
 import { connect } from 'react-redux';
 
 class MainApp extends Component {
@@ -36,6 +37,7 @@ class MainApp extends Component {
 							<Route path={`${match.url}/listings`} component={listings} />
 							<Route path={`${match.url}/search`} component={search} />
 							<Route path={`${match.url}/patient/details`} component={patientDetails} />
+							<Route path={`${match.url}/appointment/details`} component={appointmentDetails} />
 
 
 							{/*<Route path={`${match.url}/applications`} component={applications} />*/}
