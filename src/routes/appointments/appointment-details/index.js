@@ -18,7 +18,7 @@ export default class AppointmentDetails extends Component {
               <Row className='appointment-details'>
                   <Colxx xxs="12">
                       <div className="mb-5 d-flex align-items-center back-arrow">
-                          <NavLink to='/app/patients'>
+                          <NavLink to='/app/appointments'>
                               <span className='d-flex'><i className="material-icons">arrow_back</i></span>
                           </NavLink>
                           <span className='page-header ml-4'>Appointment Details</span>
