@@ -7571,7 +7571,7 @@ input:-webkit-autofill {
   }
 }
 
-.seo, .review, .patients, .phone-leads, .appointments {
+.seo, .review, .patients, .phone-leads, .appointments, .calendar {
   .items-count {
     margin-right: 30px;
   }
@@ -7853,7 +7853,7 @@ input:-webkit-autofill {
   }
 }
 
-.patients, .appointments {
+.patients, .appointments, .calendar {
   .add-btn {
     margin-right: 25px;
     padding: 7px 25px 7px 25px;
@@ -7902,7 +7902,8 @@ input:-webkit-autofill {
 .patient-info, .appointment-details {
   .dropdown-menu {
     transform: translate3d(0px, 26px, 0px) !important;
-  };
+  }
+;
 
   .page-header {
     margin-bottom: unset
@@ -8108,6 +8109,7 @@ input:-webkit-autofill {
     }
   }
 }
+
 .appointment-details {
   .details-icons {
     font-size: 20px;
@@ -8128,4 +8130,90 @@ input:-webkit-autofill {
   font-size: 20px;
   margin-left: 15px;
   text-decoration: underline;
+}
+
+.calendar {
+  .rbc-time-view {
+    border-left: unset;
+    border-right: unset;
+    border-bottom: unset;
+    color: black;
+  }
+
+  .rbc-time-header.rbc-overflowing {
+    border-right: unset;
+    margin-right: unset !important;
+  }
+
+  .rbc-time-header {
+    .rbc-allday-cell {
+      display: none
+    }
+
+    .rbc-header {
+      border-bottom: unset;
+      font-size: 20px;
+      color: black;
+      font-weight: 600;
+    }
+  }
+
+  .rbc-time-slot {
+    border-top: unset;
+  }
+
+.rbc-day-slot.rbc-time-column
+  .rbc-timeslot-group {
+    .rbc-time-slot {
+      cursor: pointer;
+      z-index: 1000;
+
+    }
+  }
+
+  .rbc-time-gutter {
+    .rbc-time-slot {
+      display: flex;
+      align-items: center;
+    }
+    .rbc-time-slot:last-child {
+      display: none;
+    }
+  }
+
+  .calendar-move-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .big-calendar-header {
+    font-size: 15px;
+    color: black;
+    .calendar-icon{
+      font-size: 15px;
+      color: grey;
+    }
+  }
+  .add-btn {
+    font-size: 12px;
+    width: unset;
+    cursor: pointer;
+  }
+  .rbc-events-container {
+    right: 0;
+    .rbc-event {
+      height: 35px !important;
+      margin-bottom: 3px;
+      background: #0ead69;
+      border-color: #0ead69;
+      align-items: center;
+      &:first-child {
+        margin-top: 3px;
+      }
+      .rbc-event-content {
+        font-size: 15px
+      }
+    }
+  }
 }

@@ -87,7 +87,7 @@ class Appointments extends Component {
                                 backdrop="static"
                               >
                                   <ModalHeader toggle={this.toggleModal}>
-                                      Add New Patient
+                                      Add New Appointment
                                   </ModalHeader>
                                   <ModalBody>
                                       <Label>
