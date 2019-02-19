@@ -10,7 +10,7 @@ export const getListings = () => {
     return dispatch => {
         dispatch({type: GET_LISTINGS_PENDING});
 
-        Http.get(`http://35.237.117.23:3002/listings?locationIds=${locationId}`)
+        Http.get(`/listings?locationIds=${locationId}`)
           .then(response => response.data ? dispatch(getListingsSuccess(response.data)) : dispatch(getListingsFailed('No Listings')))
           .catch(err => dispatch(getListingsFailed('Can\'t Find Listings, Please Sign In Again')))
     }
