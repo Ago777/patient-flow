@@ -31,7 +31,7 @@ class Login extends Component {
         const state = this.state;
         state[type] = value;
         this.setState(state);
-        this.props.resetError();
+        this.props.loginError && this.props.resetError();
     };
 
     componentDidMount() {

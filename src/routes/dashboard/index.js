@@ -407,14 +407,6 @@ class DefaultDashboard extends Component {
                                 <CardTitle>
                                     <IntlMessages id="dashboards.calendar" />
                                 </CardTitle>
-                                <BigCalendar
-                                    style={{ minHeight: "500px" }}
-                                    events={events}
-                                    views={["month"]}
-                                    components={{
-                                        toolbar: CalendarToolbar
-                                    }}
-                                />
                             </CardBody>
                         </Card>
                     </Colxx>

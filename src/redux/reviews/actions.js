@@ -10,7 +10,7 @@ import {
 export const getReviews = () => {
     return dispatch => {
         dispatch({type: GET_REVIEWS_PENDING});
-        Http.get("http://80.87.199.171:3002/reviews")
+        Http.get("http://35.237.117.23:3002/reviews")
           .then(response => response.data ? dispatch(getReviewsSuccess(response.data)) : dispatch(getReviewsFailed('No Reviews')))
           .catch(err => dispatch(getReviewsFailed('Can\'t Find Reviews, Please Sign In Again')))
     }

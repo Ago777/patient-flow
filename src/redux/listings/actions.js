@@ -6,9 +6,11 @@ import {
 } from 'Constants/actionTypes';
 
 export const getListings = () => {
+    const locationId = JSON.parse(localStorage.getItem('user'))['locationIds'];
     return dispatch => {
         dispatch({type: GET_LISTINGS_PENDING});
-        Http.get("http://80.87.199.171:3002/listings")
+
+        Http.get(`http://35.237.117.23:3002/listings?locationIds=${locationId}`)
           .then(response => response.data ? dispatch(getListingsSuccess(response.data)) : dispatch(getListingsFailed('No Listings')))
           .catch(err => dispatch(getListingsFailed('Can\'t Find Listings, Please Sign In Again')))
     }

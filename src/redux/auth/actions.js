@@ -10,7 +10,7 @@ import {
 export const loginUser = (user, history) => {
     return dispatch => {
         dispatch({type: LOGIN_PENDING});
-        Http.auth('http://80.87.199.171:3002/auth_login', user)
+        Http.auth('http://35.237.117.23:3002/auth_login', user)
             .then(response => dispatch(loginUserSuccess(response, history)))
             .catch(res => dispatch({type: LOGIN_USER_FAILED, payload: 'Wrong Email or Password'}))
     };

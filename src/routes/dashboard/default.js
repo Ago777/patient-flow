@@ -26,7 +26,6 @@ import { NavLink } from "react-router-dom";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { Colxx, Separator } from "Components/CustomBootstrap";
 import BreadcrumbContainer from "Components/BreadcrumbContainer";
-import { CalendarToolbar } from "Components/Calendar/CalendarToolbar";
 import { PolarShadow, LineShadow, SmallLineChart } from "Components/Charts";
 import {
   visitChartConfig,
@@ -407,14 +406,6 @@ class DefaultDashboard extends Component {
                 <CardTitle>
                   <IntlMessages id="dashboards.calendar" />
                 </CardTitle>
-                <BigCalendar
-                  style={{ minHeight: "500px" }}
-                  events={events}
-                  views={["month"]}
-                  components={{
-                    toolbar: CalendarToolbar
-                  }}
-                />
               </CardBody>
             </Card>
           </Colxx>
