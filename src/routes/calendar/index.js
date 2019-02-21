@@ -121,25 +121,21 @@ class Calendar extends Component {
                                 events={[
                                     {
                                         'title': 'John Smith',
-                                        'allDay': false,
                                         'start': new Date(2019, 1, 19, 10, 0), // 10.00 AM
                                         'end': new Date(2019, 1, 19, 10, 30), // 2.00 PM
                                     },
                                     {
                                         'title': 'James Hall',
-                                        'allDay': false,
                                         'start': new Date(2019, 1, 19, 10, 30), // 10.00 AM
                                         'end': new Date(2019, 1, 19, 10, 50), // 2.00 PM
                                     },
                                     {
                                         'title': 'Anthony Green',
-                                        'allDay': false,
                                         'start': new Date(2019, 1, 23, 12, 0), // 10.00 AM
                                         'end': new Date(2019, 1, 23, 12, 30), // 2.00 PM
                                     }  ,
                                     {
                                         'title': 'Anthony Green',
-                                        'allDay': false,
                                         'start': new Date(2019, 1, 17, 12, 30), // 10.00 AM
                                         'end': new Date(2019, 1, 17, 12, 40), // 2.00 PM
                                     }

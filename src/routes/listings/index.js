@@ -19,9 +19,7 @@ class Listings extends Component {
             props: {
                 error,
                 isLoading,
-                count,
                 listings,
-                first_name
             },
         } = this;
         if (isLoading) return <div className="loading"/>;
@@ -33,6 +31,9 @@ class Listings extends Component {
               </NavLink>
           </div>
         );
+
+        let count = 0;
+        Object.values(listings).forEach(listing => count += listing.length);
 
         return (
           <Fragment>
@@ -47,73 +48,207 @@ class Listings extends Component {
                           </div>
                       </Colxx>
                   </Row>
-                  <Row>
-                      {/*<Colxx xxs="12 mb-2">*/}
-                          {/*<div className='mb-1 d-flex align-items-center'>*/}
-                              {/*<i className='material-icons'>local_hospital</i>*/}
-                              {/*<span className='sub-header'>Medical (6) </span>*/}
-                          {/*</div>*/}
-                      {/*</Colxx>*/}
-                      {
-                          listings.map((listing, i) => {
-                              return (
-                                <Colxx xxs="12" key={`${listing['id']} ${i}` } className="mb-3 listings">
-                                    <ContextMenuTrigger id="menu_id">
-                                        <Card className="d-flex flex-row">
-                                            <div
-                                              className="d-flex"
-                                            >
-                                                <img
-                                                  alt='img'
-                                                  src='/assets/img/FL.jpg'
-                                                  className="list-thumbnail responsive border-0"
-                                                />
-                                            </div>
-                                            <div className="pl-2 d-flex flex-grow-1 min-width-zero">
-                                                <div
-                                                  className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                                                    <div className="w-25 w-sm-100">
-                                                        <p className="list-item-heading mb-1 truncate">
-                                                            {listing['publisherId']}
-                                                        </p>
-                                                    </div>
-                                                    <p
-                                                      className="mb-1 text-muted text-small truncate w-20 w-sm-100 small-txt-xxs">
-                                                        {first_name}
-                                                    </p>
-                                                    <p
-                                                      className="mb-1 text-muted text-small truncate w-20 w-sm-100 small-txt-xxs">
-                                                        Medical
-                                                    </p>
-                                                    <p
-                                                      className="mb-1 text-muted text-small truncate w-25 w-sm-100 small-txt-xxs">
-                                                        {listing['locationId']}
-                                                    </p>
-                                                    <div className="w-15 w-sm-100 text-center">
-                                                        <Badge className={listing['status']}  pill>
-                                                            {listing['status']}
-                                                        </Badge>
-                                                    </div>
-                                                </div>
-                                                <div className="pl-1 align-self-center pr-4">
-                                                    <NavLink
-                                                      to='#'
-                                                      className="review"
-                                                    >
-                                                        <p className="review-btn mb-0 text-muted text-small">
-                                                            <span className='hide-view-txt'>View Listing</span>
-                                                            <i className="material-icons hide">launch</i>
-                                                        </p>
-                                                    </NavLink>
-                                                </div>
-                                            </div>
-                                        </Card>
-                                    </ContextMenuTrigger>
-                                </Colxx>
-                              );
-                          })
-                      }
-                  </Row>
+                  {
+                      listings['medical'] && (
+                        <Row>
+                            <Colxx xxs="12 mb-2">
+                                <div className='mb-1 d-flex align-items-center'>
+                                    <i className='material-icons'>local_hospital</i>
+                                    <span className='sub-header'>Medical ({listings['medical'].length}) </span>
+                                </div>
+                            </Colxx>
+                            {
+                                listings['medical'].map((listing, i) => {
+                                    return (
+                                      <Colxx xxs="12" key={`${listing['id']} ${i}`} className="mb-3 listings">
+                                          <ContextMenuTrigger id="menu_id">
+                                              <Card className="d-flex flex-row">
+                                                  <div
+                                                    className="d-flex"
+                                                  >
+                                                      <img
+                                                        alt='img'
+                                                        src={listing['small_img_url'] || '/assets/img/noimg.png'}
+                                                        className="list-thumbnail responsive border-0"
+                                                      />
+                                                  </div>
+                                                  <div className="pl-2 d-flex flex-grow-1 min-width-zero">
+                                                      <div
+                                                        className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+                                                          <div className="w-25 w-sm-100">
+                                                              <p className="list-item-heading mb-1 truncate">
+                                                                  {listing['publisherId']}
+                                                              </p>
+                                                          </div>
+                                                          <p
+                                                            className="mb-1 text-muted truncate w-20 w-sm-100 small-txt-xxs">
+                                                              {listing['locationName']}
+                                                          </p>
+                                                          <p
+                                                            className="mb-1 text-muted text-small truncate w-25 w-sm-100 small-txt-xxs">
+                                                              {listing['locationIds']}
+                                                          </p>
+                                                          <div className="w-15 w-sm-100 text-center">
+                                                              <Badge className={listing['status']} pill>
+                                                                  {listing['status']}
+                                                              </Badge>
+                                                          </div>
+                                                      </div>
+                                                      <div className="pl-1 align-self-center pr-4">
+                                                          <NavLink
+                                                            to='#'
+                                                            className="review"
+                                                          >
+                                                              <p className="review-btn mb-0 text-muted text-small">
+                                                                  <span className='hide-view-txt'>View Listing</span>
+                                                                  <i className="material-icons hide">launch</i>
+                                                              </p>
+                                                          </NavLink>
+                                                      </div>
+                                                  </div>
+                                              </Card>
+                                          </ContextMenuTrigger>
+                                      </Colxx>
+                                    );
+                                })
+                            }
+                        </Row>
+                      )
+                  }
+                  {
+                      listings['social'] && (
+                        <Row>
+                            <Colxx xxs="12 mb-2 mt-5">
+                                <div className='mb-1 d-flex align-items-center'>
+                                    <i className='material-icons'>thumb_up_alt</i>
+                                    <span className='sub-header'>Social ({listings['social'].length}) </span>
+                                </div>
+                            </Colxx>
+                            {
+                                listings['social'].map((listing, i) => {
+                                    return (
+                                      <Colxx xxs="12" key={`${listing['id']} ${i}`} className="mb-3 listings">
+                                          <ContextMenuTrigger id="menu_id">
+                                              <Card className="d-flex flex-row">
+                                                  <div
+                                                    className="d-flex"
+                                                  >
+                                                      <img
+                                                        alt='img'
+                                                        src={listing['small_img_url'] || '/assets/img/noimg.png'}
+                                                        className="list-thumbnail responsive border-0"
+                                                      />
+                                                  </div>
+                                                  <div className="pl-2 d-flex flex-grow-1 min-width-zero">
+                                                      <div
+                                                        className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+                                                          <div className="w-25 w-sm-100">
+                                                              <p className="list-item-heading mb-1 truncate">
+                                                                  {listing['publisherId']}
+                                                              </p>
+                                                          </div>
+                                                          <p
+                                                            className="mb-1 text-muted truncate w-20 w-sm-100 small-txt-xxs">
+                                                              {listing['locationName']}
+                                                          </p>
+                                                          <p
+                                                            className="mb-1 text-muted text-small truncate w-25 w-sm-100 small-txt-xxs">
+                                                              {listing['locationIds']}
+                                                          </p>
+                                                          <div className="w-15 w-sm-100 text-center">
+                                                              <Badge className={listing['status']} pill>
+                                                                  {listing['status']}
+                                                              </Badge>
+                                                          </div>
+                                                      </div>
+                                                      <div className="pl-1 align-self-center pr-4">
+                                                          <NavLink
+                                                            to='#'
+                                                            className="review"
+                                                          >
+                                                              <p className="review-btn mb-0 text-muted text-small">
+                                                                  <span className='hide-view-txt'>View Listing</span>
+                                                                  <i className="material-icons hide">launch</i>
+                                                              </p>
+                                                          </NavLink>
+                                                      </div>
+                                                  </div>
+                                              </Card>
+                                          </ContextMenuTrigger>
+                                      </Colxx>
+                                    );
+                                })
+                            }
+                        </Row>
+                      )
+                  }
+                  {
+                      listings['local'] && (
+                        <Row>
+                            <Colxx xxs="12 mb-2 mt-5">
+                                <div className='mb-1 d-flex align-items-center'>
+                                    <i className='material-icons'>location_on</i>
+                                    <span className='sub-header'>Local ({listings['local'].length}) </span>
+                                </div>
+                            </Colxx>
+                            {
+                                listings['local'].map((listing, i) => {
+                                    return (
+                                      <Colxx xxs="12" key={`${listing['id']} ${i}`} className="mb-3 listings">
+                                          <ContextMenuTrigger id="menu_id">
+                                              <Card className="d-flex flex-row">
+                                                  <div
+                                                    className="d-flex"
+                                                  >
+                                                      <img
+                                                        alt='img'
+                                                        src={listing['small_img_url'] || '/assets/img/noimg.png'}
+                                                        className="list-thumbnail responsive border-0"
+                                                      />
+                                                  </div>
+                                                  <div className="pl-2 d-flex flex-grow-1 min-width-zero">
+                                                      <div
+                                                        className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+                                                          <div className="w-25 w-sm-100">
+                                                              <p className="list-item-heading mb-1 truncate">
+                                                                  {listing['publisherId']}
+                                                              </p>
+                                                          </div>
+                                                          <p
+                                                            className="mb-1 text-muted truncate w-20 w-sm-100 small-txt-xxs">
+                                                              {listing['locationName']}
+                                                          </p>
+                                                          <p
+                                                            className="mb-1 text-muted text-small truncate w-25 w-sm-100 small-txt-xxs">
+                                                              {listing['locationIds']}
+                                                          </p>
+                                                          <div className="w-15 w-sm-100 text-center">
+                                                              <Badge className={listing['status']} pill>
+                                                                  {listing['status']}
+                                                              </Badge>
+                                                          </div>
+                                                      </div>
+                                                      <div className="pl-1 align-self-center pr-4">
+                                                          <NavLink
+                                                            to='#'
+                                                            className="review"
+                                                          >
+                                                              <p className="review-btn mb-0 text-muted text-small">
+                                                                  <span className='hide-view-txt'>View Listing</span>
+                                                                  <i className="material-icons hide">launch</i>
+                                                              </p>
+                                                          </NavLink>
+                                                      </div>
+                                                  </div>
+                                              </Card>
+                                          </ContextMenuTrigger>
+                                      </Colxx>
+                                    );
+                                })
+                            }
+                        </Row>
+                      )
+                  }
               </div>
           </Fragment>
         );
@@ -124,7 +259,6 @@ const mapStateToProps = ({listingsPage, authUser}) => {
     const {
         error,
         isLoading,
-        count,
         listings
     } = listingsPage;
 
@@ -133,7 +267,6 @@ const mapStateToProps = ({listingsPage, authUser}) => {
     return {
         error,
         isLoading,
-        count,
         listings,
         first_name
     };

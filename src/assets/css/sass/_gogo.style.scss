@@ -8118,6 +8118,16 @@ input:-webkit-autofill {
     font-weight: 600;
   }
 
+  .patient-status  .material-icons {
+    color: #20a320;
+    font-size: 8px;
+  }
+
+  .patient-status {
+    color: #20a320;
+    font-size: 15px;
+  }
+
   @include respond-below(xs) {
     .page-header {
       font-size: 23px;

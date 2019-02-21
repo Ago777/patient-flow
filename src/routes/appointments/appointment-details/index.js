@@ -5,7 +5,7 @@ import {
     UncontrolledDropdown,
     DropdownItem,
     DropdownToggle,
-    DropdownMenu,
+    DropdownMenu, Button, Modal, ModalHeader, ModalBody, Label, Input, CustomInput, ModalFooter,
 } from "reactstrap";
 import {Colxx, Separator} from "Components/CustomBootstrap";
 import {NavLink} from "react-router-dom";
@@ -17,13 +17,22 @@ export default class AppointmentDetails extends Component {
           <Fragment>
               <Row className='appointment-details'>
                   <Colxx xxs="12">
-                      <div className="mb-5 d-flex align-items-center back-arrow">
-                          <NavLink to='/app/appointments'>
-                              <span className='d-flex'><i className="material-icons">arrow_back</i></span>
-                          </NavLink>
-                          <span className='page-header ml-4'>Appointment Details</span>
+                      <div className="mb-5 d-flex align-items-xs-center justify-content-between flex-column  flex-xs-row back-arrow">
+                          <div className='d-flex align-items-center'>
+                              <NavLink to='/app/appointments'>
+                                  <span className='d-flex'><i className="material-icons">arrow_back</i></span>
+                              </NavLink>
+                              <span className='page-header ml-4'>Appointment Details</span>
+                          </div>
+                          <div>
+                              <p className='patient-status  d-flex align-items-center'>
+                                  <i className="material-icons mr-2"> lens</i>
+                                  <span>New Patient</span>
+                              </p>
+                          </div>
                       </div>
                   </Colxx>
+
               </Row>
               <Row className='appointment-details'>
                   <Colxx sm="12" md="12" lg="6" className="mb-4">
@@ -69,7 +78,7 @@ export default class AppointmentDetails extends Component {
                                       </div>
                                       <div>
                                           <p className='small-txt-xxs mb-0 head-txt'>
-                                            Provider
+                                              Provider
                                           </p>
                                           <p className="list-item-heading small-txt-xxs email">
                                               Dr.Phelps
@@ -120,21 +129,22 @@ export default class AppointmentDetails extends Component {
                                               PatientFlow
                                           </p>
                                       </div>
-                                  </div><div className="w-100 mb-3 d-flex">
-                                  <div>
-                                      <i className="material-icons details-icons">
-                                          local_hospital
-                                      </i>
                                   </div>
-                                  <div>
-                                      <p className='d-flex small-txt-xxs mb-0 head-txt'>
-                                          Reason For Visit
-                                      </p>
-                                      <p className="list-item-heading small-txt-xxs">
-                                          Fever
-                                      </p>
+                                  <div className="w-100 mb-3 d-flex">
+                                      <div>
+                                          <i className="material-icons details-icons">
+                                              local_hospital
+                                          </i>
+                                      </div>
+                                      <div>
+                                          <p className='d-flex small-txt-xxs mb-0 head-txt'>
+                                              Reason For Visit
+                                          </p>
+                                          <p className="list-item-heading small-txt-xxs">
+                                              Fever
+                                          </p>
+                                      </div>
                                   </div>
-                              </div>
 
                               </div>
                               <div className="detail-icon pr-4">
