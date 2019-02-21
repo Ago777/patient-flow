@@ -148,9 +148,9 @@ class Patients extends Component {
                   </Row>
                   <Row>
                       {
-                          listings.map((listing, i) => {
+                          [1,2,3,4,5,6,7,8,9,10].map((listing, i) => {
                               return (
-                                <Colxx xxs="12" key={`${listing['id']} ${i}`} className="mb-3 patients">
+                                <Colxx xxs="12" key={`${listing} ${i}`} className="mb-3 patients">
                                     <ContextMenuTrigger id="menu_id">
                                         <Card className="d-flex flex-row">
                                             <div
