@@ -6,3 +6,4 @@ const hosts = {
 const currentHost = () => process.env.NODE_ENV === 'production' ? hosts.prod : hosts.dev;
 
 export default  currentHost;
+

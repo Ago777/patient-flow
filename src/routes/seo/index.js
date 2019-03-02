@@ -34,8 +34,11 @@ import CircularProgressbar from "react-circular-progressbar";
 import {Colxx} from "Components/CustomBootstrap";
 import {BreadcrumbItems} from "Components/BreadcrumbContainer";
 import classnames from "classnames";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+import {getSeoRankings} from "Redux/actions";
 
-export default class DetailsLayout extends Component {
+class Seo extends Component {
     state = {
         orderOptions: [
             {column: "keywords", label: "Keywords"},
@@ -44,6 +47,10 @@ export default class DetailsLayout extends Component {
             {column: "all", label: "All"}
         ],
         selectedOrderOption: {column: "all", label: "All"},
+    };
+
+    componentWillMount() {
+        this.props.getSeoRankings();
     };
 
     changeOrderBy = (column) => {
@@ -57,6 +64,22 @@ export default class DetailsLayout extends Component {
     };
 
     render() {
+        const {
+            props: {
+                error,
+                isLoading,
+                seoRankings
+            },
+        } = this;
+        if (isLoading) return <div className="loading"/>;
+        if (error) return (
+          <div>
+              <h1>{error}</h1>
+              <NavLink onClick={() => this.props.logoutUser(this.props.history)} to='/login' className='link-sign-in'>
+                  Sign In
+              </NavLink>
+          </div>
+        );
         return (
           <Fragment>
               <Row className='seo'>
@@ -89,6 +112,7 @@ export default class DetailsLayout extends Component {
                           <TabPane tabId="2">
                               <Row>
                                   <Colxx>
+
                                       <Card className="d-flex flex-row head">
                                           <div className="d-flex flex-grow-1 min-width-zero">
                                               <CardBody
@@ -108,188 +132,32 @@ export default class DetailsLayout extends Component {
                                               </CardBody>
                                           </div>
                                       </Card>
-
-                                      <Card className="d-flex flex-row mb-2">
-                                          <div className="d-flex flex-grow-1 min-width-zero">
-                                              <CardBody
-                                                className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
-                                                      endormologie Los Angeles
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Page:</span>
-                                                      <span>1</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Position:</span>
-                                                      <span>2</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Search Engine:</span>
-                                                      <span>Google</span>
-                                                  </p>
-                                              </CardBody>
-                                          </div>
-                                      </Card>
-
-                                      <Card className="d-flex flex-row mb-2">
-                                          <div className="d-flex flex-grow-1 min-width-zero">
-                                              <CardBody
-                                                className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
-                                                      endormologie Los Angeles
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Page:</span>
-                                                      <span>1</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Position:</span>
-                                                      <span>2</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Search Engine:</span>
-                                                      <span>Google</span>
-                                                  </p>
-                                              </CardBody>
-                                          </div>
-                                      </Card>
-
-                                      <Card className="d-flex flex-row mb-2">
-                                          <div className="d-flex flex-grow-1 min-width-zero">
-                                              <CardBody
-                                                className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
-                                                      endormologie Los Angeles
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Page:</span>
-                                                      <span>1</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Position:</span>
-                                                      <span>2</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Search Engine:</span>
-                                                      <span>Google</span>
-                                                  </p>
-                                              </CardBody>
-                                          </div>
-                                      </Card>
-
-                                      <Card className="d-flex flex-row mb-2">
-                                          <div className="d-flex flex-grow-1 min-width-zero">
-                                              <CardBody
-                                                className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
-                                                      endormologie Los Angeles
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Page:</span>
-                                                      <span>1</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Position:</span>
-                                                      <span>2</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Search Engine:</span>
-                                                      <span>Google</span>
-                                                  </p>
-                                              </CardBody>
-                                          </div>
-                                      </Card>
-                                      <Card className="d-flex flex-row mb-2">
-                                          <div className="d-flex flex-grow-1 min-width-zero">
-                                              <CardBody
-                                                className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
-                                                      endormologie Los Angeles
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Page:</span>
-                                                      <span>1</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Position:</span>
-                                                      <span>2</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Search Engine:</span>
-                                                      <span>Google</span>
-                                                  </p>
-                                              </CardBody>
-                                          </div>
-                                      </Card>
-                                      <Card className="d-flex flex-row mb-2">
-                                          <div className="d-flex flex-grow-1 min-width-zero">
-                                              <CardBody
-                                                className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
-                                                      endormologie Los Angeles
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Page:</span>
-                                                      <span>1</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Position:</span>
-                                                      <span>2</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Search Engine:</span>
-                                                      <span>Google</span>
-                                                  </p>
-                                              </CardBody>
-                                          </div>
-                                      </Card>
-
-                                      <Card className="d-flex flex-row mb-2">
-                                          <div className="d-flex flex-grow-1 min-width-zero">
-                                              <CardBody
-                                                className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
-                                                      endormologie Los Angeles
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Page:</span>
-                                                      <span>1</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Position:</span>
-                                                      <span>2</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Search Engine:</span>
-                                                      <span>Google</span>
-                                                  </p>
-                                              </CardBody>
-                                          </div>
-                                      </Card>
-
-                                      <Card className="d-flex flex-row mb-2">
-                                          <div className="d-flex flex-grow-1 min-width-zero">
-                                              <CardBody
-                                                className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
-                                                  <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
-                                                      endormologie Los Angeles
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Page:</span>
-                                                      <span>1</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Position:</span>
-                                                      <span>2</span>
-                                                  </p>
-                                                  <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
-                                                      <span className='hidden'>Search Engine:</span>
-                                                      <span>Google</span>
-                                                  </p>
-                                              </CardBody>
-                                          </div>
-                                      </Card>
+                                      {
+                                          seoRankings.map(seo => (
+                                            <Card className="d-flex flex-row mb-2">
+                                                <div className="d-flex flex-grow-1 min-width-zero">
+                                                    <CardBody
+                                                      className="align-self-center d-flex flex-column flex-sm-row justify-content-between min-width-zero align-items-sm-center">
+                                                        <p className="pb-1 mb-1 text-muted text-small w-30 w-xs-100 truncate">
+                                                            {seo.keyword}
+                                                        </p>
+                                                        <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                            <span className='hidden'>Page:</span>
+                                                            <span>{seo.page}</span>
+                                                        </p>
+                                                        <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                            <span className='hidden'>Position:</span>
+                                                            <span>{seo.position}</span>
+                                                        </p>
+                                                        <p className="pb-1 mb-1 text-muted text-small w-20 w-xs-100 d-flex justify-content-between">
+                                                            <span className='hidden'>Search Engine:</span>
+                                                            <span>{seo.searchEngine}</span>
+                                                        </p>
+                                                    </CardBody>
+                                                </div>
+                                            </Card>
+                                          ))
+                                      }
                                   </Colxx>
                               </Row>
                           </TabPane>
@@ -300,4 +168,29 @@ export default class DetailsLayout extends Component {
           </Fragment>
         );
     }
-}
+};
+
+const mapStateToProps = ({seoPage}) => {
+    const {
+        error,
+        isLoading,
+        seoRankings
+    } = seoPage;
+
+    return {
+        error,
+        isLoading,
+        seoRankings
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators(
+      {
+          getSeoRankings
+      },
+      dispatch
+    );
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Seo);
