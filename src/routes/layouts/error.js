@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from "react";
 import IntlMessages from "Util/IntlMessages";
 import { Row, Card, CardTitle,Button } from "reactstrap";
-import { NavLink } from "react-router-dom";
-
 import { Colxx } from "Components/CustomBootstrap";
 
 class Error404 extends Component {
@@ -30,9 +28,6 @@ class Error404 extends Component {
                     <p className="white mb-0">Yes, it is indeed!</p>
                   </div>
                   <div className="form-side">
-                    <NavLink to={`/`} className="white">
-                      <span className="logo-single" />
-                    </NavLink>
                     <CardTitle className="mb-4">
                       <IntlMessages id="layouts.error-title" />
                     </CardTitle>
